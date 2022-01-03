@@ -2,6 +2,8 @@ NAME = minishell
 
 INPUT = \
 	main.c \
+	split.c \
+	utils.c \
 
 OUTPUT = ${INPUT:.c=.o}
 
