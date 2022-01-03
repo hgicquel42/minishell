@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/03 13:30:00 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/03 17:13:49 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,9 @@ char	*ft_getcwd(void);
 int		ft_strcmp(char *a, char *b);
 
 char	**ft_split(char *s, char c);
+
+int		ft_split_count(char *s, int *r, char c);
+
+void	ft_split_copy(char *s, char *w, char c);
 
 #endif
