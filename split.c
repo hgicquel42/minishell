@@ -6,40 +6,39 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:28:36 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/03 16:53:02 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/03 17:09:13 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-static int	ft_count_quote(char *s, int *r)
-{
-	int	j;
-
-	j = 0;
-	while (s[j + 1] && s[j + 1] != '"')
-		j++;
-	*r = j + 2;
-	return (j);
-}
-
-static int	ft_count_raw(char *s, int *r, char c)
-{
-	int	j;
-
-	j = 0;
-	while (s[j] && s[j] != c)
-		j++;
-	*r = j;
-	return (j);
-}
-
 static int	ft_count(char *s, int *r, char c)
 {
-	if (*s == '"')
-		return (ft_count_quote(s, r));
-	else
-		return (ft_count_raw(s, r, c));
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s[i] && s[i] != c)
+	{
+		if (s[i] != '"')
+		{
+			i++;
+			j++;
+		}
+		else
+		{
+			i++;
+			while (s[i] && s[i] != '"')
+			{
+				i++;
+				j++;
+			}
+			i++;
+		}
+	}
+	*r = i;
+	return (j);
 }
 
 static	int	ft_split_count(char *s, char c)
@@ -73,16 +72,22 @@ static	int	ft_split_free(char **r, int k)
 static void	ft_copy(char *s, char *w, char c)
 {
 	int	i;
-	int	l;
+	int	j;
 
 	i = 0;
-	l = 0;
-	if (*s == '"')
-		while (s[l + 1] && s[l + 1] != '"')
-			w[i++] = s[l++ + 1];
-	else
-		while (s[l] && s[l] != c)
-			w[i++] = s[l++];
+	j = 0;
+	while (s[i] && s[i] != c)
+	{
+		if (s[i] != '"')
+			w[j++] = s[i++];
+		else
+		{
+			i++;
+			while (s[i] && s[i] != '"')
+				w[j++] = s[i++];
+			i++;
+		}
+	}
 }
 
 static	int	ft_split_alloc(char *s, char c, char **p)

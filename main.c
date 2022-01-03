@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/03 16:12:44 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/03 17:07:48 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ bool	ft_readline(t_state *state)
 	char	*line;
 	char	**args;
 
-(void)args;
 	line = readline("> ");
 	args = ft_split(line, ' ');
-	// state->exit = 1;
 	if (!ft_strcmp(args[0], "echo"))
 		printf("%s\n", args[1]);
 	else if (!ft_strcmp(args[0], "pwd"))
