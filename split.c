@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:28:36 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/03 16:25:14 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/03 16:53:02 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,26 @@ static	int	ft_split_free(char **r, int k)
 	return (0);
 }
 
-static	int	ft_split_alloc(char *s, char c, char **p)
+static void	ft_copy(char *s, char *w, char c)
 {
 	int	i;
-	int	i2;
-	int	j;
-	int	k;
-	int	r;
+	int	l;
+
+	i = 0;
+	l = 0;
+	if (*s == '"')
+		while (s[l + 1] && s[l + 1] != '"')
+			w[i++] = s[l++ + 1];
+	else
+		while (s[l] && s[l] != c)
+			w[i++] = s[l++];
+}
+
+static	int	ft_split_alloc(char *s, char c, char **p)
+{
+	int		j;
+	int		k;
+	int		r;
 	char	*w;
 
 	k = 0;
@@ -90,15 +103,8 @@ static	int	ft_split_alloc(char *s, char c, char **p)
 		w = malloc(j + 1);
 		if (!w)
 			return (ft_split_free(p, k));
-		i = 0;
-		i2 = 0;
-		while (i < r)
-		{
-			if (s[i] != '"')
-				w[i2++] = s[i];
-			i++;
-		}
-		s += i;
+		ft_copy(s, w, c);
+		s += r;
 		w[j] = 0;
 		p[k++] = w;
 	}
