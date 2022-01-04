@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 14:19:05 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/04 15:32:17 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,19 @@
 
 bool	ft_exec(t_state *s, char **args)
 {
+	char	*path;
+	char	**env;
+	pid_t	pid;
+
 	(void)s;
-	(void)args;
+	path = ft_strjoin2("/bin/", args[0]);
+	env = malloc(1 * sizeof(char *));
+	env[0] = NULL;
+	pid = fork();
+	if (pid == 0)
+		execve(path, args, env);
+	else
+		waitpid(pid, NULL, 0);
 	return (true);
 }
 
