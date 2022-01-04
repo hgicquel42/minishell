@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/03 17:13:49 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:53:16 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,25 @@
 typedef struct s_state
 {
 	bool	exit;
+	bool	retval;
 }	t_state;
 
 char	*ft_getcwd(void);
 
 int		ft_strcmp(char *a, char *b);
 
+bool	ft_putchr(char c);
+
+size_t	ft_strlen(char *s);
+
+bool	ft_putstr(char *s);
+
 char	**ft_split(char *s, char c);
 
 int		ft_split_count(char *s, int *r, char c);
 
 void	ft_split_copy(char *s, char *w, char c);
+
+bool	ft_echo(char **args);
 
 #endif

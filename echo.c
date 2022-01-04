@@ -1,53 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 13:29:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 13:51:18 by hgicquel         ###   ########.fr       */
+/*   Created: 2022/01/04 13:35:40 by hgicquel          #+#    #+#             */
+/*   Updated: 2022/01/04 13:49:35 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-char	*ft_getcwd(void)
-{
-	char	r[FILENAME_MAX];
-
-	return (getcwd(r, FILENAME_MAX));
-}
-
-int	ft_strcmp(char *a, char *b)
+bool	ft_echo2(char **args)
 {
 	int	i;
 
 	i = 0;
-	while (a[i] && a[i] == b[i])
-		i++;
-	return (a[i] - b[i]);
+	while (args[i])
+		if ((i > 0 && !ft_putchr(' ')) || !ft_putstr(args[i++]))
+			return (false);
+	return (true);
 }
 
-bool	ft_putchr(char c)
+bool	ft_echo(char **args)
 {
-	return (write(1, &c, 1) == 1);
-}
+	bool	result;
 
-size_t	ft_strlen(char *s)
-{
-	size_t	l;
-
-	l = 0;
-	while (s[l])
-		l++;
-	return (l);
-}
-
-bool	ft_putstr(char *s)
-{
-	ssize_t	l;
-
-	l = (ssize_t) ft_strlen(s);
-	return (write(1, s, l) == l);
+	if (!ft_strcmp(args[0], "-n"))
+		return (ft_echo2(args + 1));
+	result = ft_echo2(args);
+	ft_putchr('\n');
+	return (result);
 }

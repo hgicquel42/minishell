@@ -6,28 +6,47 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/03 17:07:48 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:59:57 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-bool	ft_readline(t_state *state)
+bool	ft_exec(t_state *s, char **args)
+{
+	(void)s;
+	(void)args;
+	return (true);
+}
+
+bool	ft_route(t_state *s, char **args)
+{
+	if (!ft_strcmp(args[0], "echo"))
+		return (ft_echo(args + 1));
+	else if (!ft_strcmp(args[0], "pwd"))
+		printf("%s\n", ft_getcwd());
+	else if (!ft_strcmp(args[0], "cd"))
+		chdir(args[1]);
+	else if (!ft_strcmp(args[0], "exit"))
+		s->exit = true;
+	else
+		return (ft_exec(s, args));
+	return (true);
+}
+
+bool	ft_readline(t_state *s)
 {
 	char	*line;
 	char	**args;
 
 	line = readline("> ");
+	if (!line)
+		return (false);
 	args = ft_split(line, ' ');
-	if (!ft_strcmp(args[0], "echo"))
-		printf("%s\n", args[1]);
-	else if (!ft_strcmp(args[0], "pwd"))
-		printf("%s\n", ft_getcwd());
-	else if (!ft_strcmp(args[0], "cd"))
-		chdir("");
-	else if (!ft_strcmp(args[0], "exit"))
-		state->exit = 1;
-	return (1);
+	if (!args)
+		return (false);
+	s->retval = ft_route(s, args);
+	return (true);
 }
 
 int	main(void)
