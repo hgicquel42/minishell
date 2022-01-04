@@ -6,16 +6,16 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 17:10:06 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 15:20:07 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/04 15:39:07 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	ft_noop(int i, int j)
+void	ft_noop(void *x, void *y)
 {
-	(void)i;
-	(void)j;
+	(void)x;
+	(void)y;
 }
 
 int	ft_split_count(char *s, int *r, char c)
@@ -32,11 +32,19 @@ int	ft_split_count(char *s, int *r, char c)
 		if (s[i] == '$')
 		{
 			i++;
-			k = i;
-			while (ft_isenvchr(s[i]))
+			if (s[i] == '?')
+			{
 				i++;
-			(void)k;
-			j += 5;
+				j++;
+			}
+			else
+			{
+				k = i;
+				while (ft_isenvchr(s[i]))
+					i++;
+				(void)k;
+				j += 5;
+			}
 		}
 		else if (s[i] == '"')
 		{
@@ -52,7 +60,6 @@ int	ft_split_count(char *s, int *r, char c)
 					i++;
 					j++;
 				}
-				
 			}
 			i++;
 		}
@@ -91,13 +98,21 @@ void	ft_split_copy(char *s, char *w, char c)
 		if (s[i] == '$')
 		{
 			i++;
-			k = i;
-			while (ft_isenvchr(s[i]))
+			if (s[i] == '?')
+			{
 				i++;
-			(void)k;
-			l = 0;
-			while (l < 5)
-				w[j++] = "hello"[l++];
+				w[j++] = '0';
+			}
+			else
+			{
+				k = i;
+				while (ft_isenvchr(s[i]))
+					i++;
+				(void)k;
+				l = 0;
+				while (l < 5)
+					w[j++] = "hello"[l++];
+			}
 		}
 		if (s[i] == '"')
 		{
