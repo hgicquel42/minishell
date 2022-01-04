@@ -6,11 +6,18 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:46:59 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 16:16:13 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:40:11 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+void	ft_freeenv(t_env *start)
+{
+	if (start->next)
+		ft_freeenv(start->next);
+	free(start);
+}
 
 t_env	*ft_genenv(char *env)
 {
@@ -27,22 +34,47 @@ t_env	*ft_genenv(char *env)
 	return (node);
 }
 
-t_env	*ft_addenv(t_env *end, char *env)
+bool	ft_addenv(t_env **start, char *env)
 {
 	t_env	*node;
+	t_env	**curr;
 
-	(void)end;
 	node = ft_genenv(env);
-	printf("%s == %s\n", node->key, node->value);
-	return (NULL);
+	if (!node)
+		return (false);
+	curr = start;
+	while (*curr)
+		curr = &((*curr)->next);
+	*curr = node;
+	return (true);
+}
+
+void	ft_printenv(t_env *start)
+{
+	t_env	*curr;
+
+	curr = start;
+	while (curr)
+	{
+		printf("%s=%s\n", curr->key, curr->value);
+		curr = curr->next;
+	}
 }
 
 t_env	*ft_envlst(char **envp)
 {
+	bool	error;
 	t_env	*start;
 
 	start = NULL;
-	while (*envp)
-		ft_addenv(start, *envp++);
+	error = false;
+	while (*envp && !error)
+		error += !ft_addenv(&start, *envp++);
+	if (error)
+	{
+		ft_freeenv(start);
+		return (NULL);
+	}		
+	ft_printenv(start);
 	return (start);
 }

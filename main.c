@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 16:12:34 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:36:31 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	state.envlst = ft_envlst(envp);
+	if (!state.envlst)
+		return (1);
 	state.exit = 0;
 	while (!state.exit)
 		if (!ft_readline(&state))
