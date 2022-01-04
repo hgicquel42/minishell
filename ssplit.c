@@ -1,52 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   ssplit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/04 16:03:57 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 16:07:50 by hgicquel         ###   ########.fr       */
+/*   Created: 2022/01/03 13:28:36 by hgicquel          #+#    #+#             */
+/*   Updated: 2022/01/04 16:04:03 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	ft_split_free(char **r, int k)
+int	ft_ssplit_count(char *s, char c)
 {
-	int	i;
-
-	i = 0 ;
-	while (i < k)
-		free(r[i++]);
-	free(r);
-	return (0);
-}
-
-int	ft_split_count(char *s, char c)
-{
-	size_t	j;
-	size_t	l;
+	int	r;
+	int	l;
 
 	l = 0;
 	while (*s)
 	{
 		while (*s && *s == c)
 			s++;
-		j = 0;
-		while (s[j] && s[j] != c)
-			j++;
-		if (j)
+		if (ft_ssplit_count2(s, &r, c))
 			l++;
-		s += j;
+		s += r;
 	}
 	return (l);
 }
 
-int	ft_split_copy(char *s, char c, char **r)
+int	ft_ssplit_copy(char *s, char c, char **p)
 {
-	size_t	j;
-	size_t	k;
+	int		j;
+	int		k;
+	int		r;
 	char	*w;
 
 	k = 0;
@@ -54,33 +41,30 @@ int	ft_split_copy(char *s, char c, char **r)
 	{
 		while (*s && *s == c)
 			s++;
-		j = 0;
-		while (s[j] && s[j] != c)
-			j++;
+		j = ft_ssplit_count2(s, &r, c);
 		if (!j)
 			continue ;
 		w = malloc(j + 1);
 		if (!w)
-			return (ft_split_free(r, k));
-		j = 0;
-		while (*s && *s != c)
-			w[j++] = *(s++);
+			return (ft_split_free(p, k));
+		ft_ssplit_copy2(s, w, c);
+		s += r;
 		w[j] = 0;
-		r[k++] = w;
+		p[k++] = w;
 	}
 	return (1);
 }
 
-char	**ft_split(char *s, char c)
+char	**ft_ssplit(char *s, char c)
 {
 	int		l;
 	char	**r;
 
-	l = ft_split_count(s, c);
+	l = ft_ssplit_count(s, c);
 	r = malloc((l + 1) * sizeof(char *));
 	if (!r)
 		return (0);
-	if (!ft_split_copy(s, c, r))
+	if (!ft_ssplit_copy(s, c, r))
 		return (0);
 	r[l] = 0;
 	return (r);

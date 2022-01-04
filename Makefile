@@ -3,7 +3,8 @@ NAME = minishell
 INPUT = \
 	main.c \
 	split.c \
-	split2.c \
+	ssplit.c \
+	ssplit2.c \
 	utils.c \
 	utils2.c \
 	envlst.c \

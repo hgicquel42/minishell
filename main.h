@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 15:56:05 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:12:44 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,17 @@ char	*ft_getcwd(void);
 
 bool	ft_isenvchr(char c);
 
-t_env	*ft_genenv(char **envp);
+t_env	*ft_envlst(char **envp);
 
 char	**ft_split(char *s, char c);
 
-int		ft_split_count(char *s, int *r, char c);
+int		ft_split_free(char **r, int k);
 
-void	ft_split_copy(char *s, char *w, char c);
+char	**ft_ssplit(char *s, char c);
+
+int		ft_ssplit_count2(char *s, int *r, char c);
+
+void	ft_ssplit_copy2(char *s, char *w, char c);
 
 char	*ft_strjoin2(char *a, char *b);
 
