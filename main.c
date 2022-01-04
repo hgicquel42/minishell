@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 15:32:17 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/04 15:55:56 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,13 @@ bool	ft_readline(t_state *s)
 	return (true);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_state	state;
 
+	(void)argc;
+	(void)argv;
+	state.envlst = ft_genenv(envp);
 	state.exit = 0;
 	while (!state.exit)
 		if (!ft_readline(&state))

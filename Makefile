@@ -6,6 +6,7 @@ INPUT = \
 	split2.c \
 	utils.c \
 	utils2.c \
+	envlst.c \
 	echo.c \
 
 OUTPUT = ${INPUT:.c=.o}
