@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 16:36:31 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:54:43 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	ft_readline(t_state *s)
 	line = readline("> ");
 	if (!line)
 		return (false);
-	args = ft_ssplit(line, ' ');
+	args = ft_ssplit(s, line, ' ');
 	if (!args)
 		return (false);
 	s->retval = ft_route(s, args);

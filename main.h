@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 16:12:44 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/04 17:17:34 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,21 @@ bool	ft_isenvchr(char c);
 
 t_env	*ft_envlst(char **envp);
 
+t_env	*ft_findenv(t_env *start, char *key);
+
 char	**ft_split(char *s, char c);
 
 int		ft_split_free(char **r, int k);
 
-char	**ft_ssplit(char *s, char c);
+char	**ft_ssplit(t_state *state, char *s, char c);
 
-int		ft_ssplit_count2(char *s, int *r, char c);
+int		ft_ssplit_count2(t_state *state, char *s, int *r, char c);
 
-void	ft_ssplit_copy2(char *s, char *w, char c);
+void	ft_ssplit_copy2(t_state *state, char *s, char *w, char c);
 
 char	*ft_strjoin2(char *a, char *b);
+
+char	*ft_strdup(char *s, int l);
 
 bool	ft_echo(char **args);
 
