@@ -6,34 +6,16 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 16:54:43 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/05 18:25:44 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-bool	ft_exec(t_state *s, char **args)
-{
-	char	*path;
-	char	**env;
-	pid_t	pid;
-
-	(void)s;
-	path = ft_strjoin2("/bin/", args[0]);
-	env = malloc(1 * sizeof(char *));
-	env[0] = NULL;
-	pid = fork();
-	if (pid == 0)
-		execve(path, args, env);
-	else
-		waitpid(pid, NULL, 0);
-	return (true);
-}
-
-bool	ft_route(t_state *s, char **args)
+int	ft_route(t_state *s, char **args)
 {
 	if (!ft_strcmp(args[0], "echo"))
-		return (ft_echo(args + 1));
+		return (!ft_echo(args + 1));
 	else if (!ft_strcmp(args[0], "pwd"))
 		printf("%s\n", ft_getcwd());
 	else if (!ft_strcmp(args[0], "cd"))
@@ -42,7 +24,7 @@ bool	ft_route(t_state *s, char **args)
 		s->exit = true;
 	else
 		return (ft_exec(s, args));
-	return (true);
+	return (0);
 }
 
 bool	ft_readline(t_state *s)
@@ -56,6 +38,8 @@ bool	ft_readline(t_state *s)
 	args = ft_ssplit(s, line, ' ');
 	if (!args)
 		return (false);
+	if (!args[0])
+		return (true);
 	s->retval = ft_route(s, args);
 	return (true);
 }

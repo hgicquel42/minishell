@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/05 16:40:28 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/05 18:25:23 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ void	ft_chrcpy(char *r, int i, char c);
 
 char	*ft_strjoin2(char *a, char *b);
 
+char	*ft_strjoin3(char *a, char *b, char *c);
+
 bool	ft_echo(char **args);
+
+int		ft_exec(t_state *s, char **args);
 
 #endif
