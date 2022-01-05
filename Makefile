@@ -5,8 +5,10 @@ INPUT = \
 	split.c \
 	ssplit.c \
 	ssplit2.c \
+	ssplit3.c \
 	utils.c \
 	utils2.c \
+	utils3.c \
 	envlst.c \
 	envlst2.c \
 	echo.c \

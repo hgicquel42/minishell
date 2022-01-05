@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/05 16:00:17 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/05 16:40:28 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ char	**ft_ssplit(t_state *state, char *s, char c);
 
 t_tuple	ft_ssplit2(t_state *g, char *s, char *r, char c);
 
-void	ft_ssplit_copy2(t_state *state, char *s, char *w, char c);
+t_tuple	ft_ssplit2_dollar(t_state *g, t_tuple t, char *s, char *r);
+
+void	ft_chrcpy(char *r, int i, char c);
 
 char	*ft_strjoin2(char *a, char *b);
 
