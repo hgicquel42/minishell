@@ -8,6 +8,7 @@ INPUT = \
 	utils.c \
 	utils2.c \
 	envlst.c \
+	envlst2.c \
 	echo.c \
 
 OUTPUT = ${INPUT:.c=.o}

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:28:36 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 16:54:36 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/05 15:59:41 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,45 @@
 
 int	ft_ssplit_count(t_state *state, char *s, char c)
 {
-	int	r;
-	int	l;
+	t_tuple	t;
+	int		l;
 
 	l = 0;
 	while (*s)
 	{
 		while (*s && *s == c)
 			s++;
-		if (ft_ssplit_count2(state, s, &r, c))
+		t = ft_ssplit2(state, s, NULL, c);
+		if (t.j)
 			l++;
-		s += r;
+		s += t.i;
 	}
 	return (l);
 }
 
-int	ft_ssplit_copy(t_state *state, char *s, char c, char **p)
+bool	ft_ssplit_copy(t_state *g, char *s, char c, char **p)
 {
-	int		j;
+	t_tuple	t;
 	int		k;
-	int		r;
-	char	*w;
+	char	*r;
 
 	k = 0;
 	while (*s)
 	{
 		while (*s && *s == c)
 			s++;
-		j = ft_ssplit_count2(state, s, &r, c);
-		if (!j)
+		t = ft_ssplit2(g, s, NULL, c);
+		if (!t.j)
 			continue ;
-		w = malloc(j + 1);
-		if (!w)
+		r = malloc(t.j + 1);
+		if (!r)
 			return (ft_split_free(p, k));
-		ft_ssplit_copy2(state, s, w, c);
-		s += r;
-		w[j] = 0;
-		p[k++] = w;
+		ft_ssplit2(g, s, r, c);
+		s += t.i;
+		r[t.j] = 0;
+		p[k++] = r;
 	}
-	return (1);
+	return (true);
 }
 
 char	**ft_ssplit(t_state *state, char *s, char c)

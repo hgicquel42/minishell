@@ -6,21 +6,21 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:03:57 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 16:07:50 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/05 16:00:09 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	ft_split_free(char **r, int k)
+bool	ft_split_free(char **p, int k)
 {
 	int	i;
 
 	i = 0 ;
 	while (i < k)
-		free(r[i++]);
-	free(r);
-	return (0);
+		free(p[i++]);
+	free(p);
+	return (false);
 }
 
 int	ft_split_count(char *s, char c)

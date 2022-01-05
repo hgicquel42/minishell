@@ -6,131 +6,100 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 17:10:06 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 17:17:36 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/05 16:31:02 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	ft_noop(void *x, void *y)
+void	ft_chrcpy(char *r, int i, char c)
 {
-	(void)x;
-	(void)y;
+	if (r)
+		r[i] = c;
 }
 
-int	ft_ssplit_count2(t_state *state, char *s, int *r, char c)
+t_tuple	ft_ssplit2_dollar_ret(t_state *g, t_tuple t, char *s, char *r)
 {
-	int		i;
-	int		j;
-	int		k;
-	t_env	env;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	while (s[i] && s[i] != c)
-	{
-		if (s[i] == '$')
-		{
-			i++;
-			if (s[i] == '?')
-			{
-				i++;
-				j++;
-			}
-			else
-			{
-				k = i;
-				while (ft_isenvchr(s[i]))
-					i++;
-				printf("%s\n", ft_strdup(s + k, i - k));
-				(void)k;
-				j += 5;
-			}
-		}
-		else if (s[i] == '"')
-		{
-			i++;
-			while (s[i] && s[i] != '"')
-			{
-				if (s[i] == '$')
-				{
-					
-				}
-				else
-				{
-					i++;
-					j++;
-				}
-			}
-			i++;
-		}
-		else if (s[i] == '\'')
-		{
-			i++;
-			while (s[i] && s[i] != '\'')
-			{
-				i++;
-				j++;
-			}
-			i++;
-		}
-		else
-		{
-			i++;
-			j++;
-		}
-	}
-	*r = i;
-	return (j);
+	(void)s;
+	t.i++;
+	if (g->retval)
+		ft_chrcpy(r, t.j++, '1');
+	else
+		ft_chrcpy(r, t.j++, '0');
+	return (t);
 }
 
-void	ft_ssplit_copy2(t_state *state, char *s, char *w, char c)
+t_tuple	ft_ssplit2_dollar_env(t_state *g, t_tuple t, char *s, char *r)
 {
-	int	i;
-	int	j;
-	int	k;
-	int	l;
+	int		l;
+	char	*k;
+	t_env	*n;
 
-	i = 0;
-	j = 0;
-	k = 0;
-	while (s[i] && s[i] != c)
+	l = 0;
+	while (ft_isenvchr(s[t.i + l]))
+		l++;
+	k = ft_strldup(s + t.i, l);
+	n = ft_findenv(g->envlst, k);
+	t.i += l;
+	if (n)
 	{
-		if (s[i] == '$')
-		{
-			i++;
-			if (s[i] == '?')
-			{
-				i++;
-				w[j++] = '0';
-			}
-			else
-			{
-				k = i;
-				while (ft_isenvchr(s[i]))
-					i++;
-				(void)k;
-				l = 0;
-				while (l < 5)
-					w[j++] = "hello"[l++];
-			}
-		}
-		if (s[i] == '"')
-		{
-			i++;
-			while (s[i] && s[i] != '"')
-				w[j++] = s[i++];
-			i++;
-		}
-		else if (s[i] == '\'')
-		{
-			i++;
-			while (s[i] && s[i] != '\'')
-				w[j++] = s[i++];
-			i++;
-		}
-		else
-			w[j++] = s[i++];
+		l = ft_strlen(n->value);
+		if (r)
+			ft_strlcpy(n->value, r + t.j, l);
+		t.j += l;
 	}
+	return (t);
+}
+
+t_tuple	ft_ssplit2_dollar(t_state *g, t_tuple t, char *s, char *r)
+{
+	t.i++;
+	if (s[t.i] == '?')
+		return (ft_ssplit2_dollar_ret(g, t, s, r));
+	else
+		return (ft_ssplit2_dollar_env(g, t, s, r));
+}
+
+t_tuple	ft_ssplit2_squote(t_state *g, t_tuple t, char *s, char *r)
+{
+	(void)g;
+	t.i++;
+	while (s[t.i] && s[t.i] != '\'')
+		ft_chrcpy(r, t.j++, s[t.i++]);
+	t.i++;
+	return (t);
+}
+
+t_tuple	ft_ssplit2_dquote(t_state *g, t_tuple t, char *s, char *r)
+{
+	t.i++;
+	while (s[t.i] && s[t.i] != '"')
+	{
+		if (s[t.i] == '$')
+			t = ft_ssplit2_dollar(g, t, s, r);
+		else
+			ft_chrcpy(r, t.j++, s[t.i++]);
+	}
+	t.i++;
+	return (t);
+}
+
+t_tuple	ft_ssplit2(t_state *g, char *s, char *r, char c)
+{
+	t_tuple	t;
+
+	t.i = 0;
+	t.j = 0;
+	while (s[t.i] && s[t.i] != c)
+	{
+		if (s[t.i] == '$')
+			t = ft_ssplit2_dollar(g, t, s, r);
+		if (s[t.i] == '"')
+			t = ft_ssplit2_dquote(g, t, s, r);
+		else if (s[t.i] == '\'')
+			t = ft_ssplit2_squote(g, t, s, r);
+		else
+			ft_chrcpy(r, t.j++, s[t.i++]);
+	}
+	return (t);
 }

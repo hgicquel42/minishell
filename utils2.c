@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:19:10 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/04 17:17:31 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/05 15:06:57 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,50 @@ bool	ft_toupperchr(char c)
 	return (c);
 }
 
-char	*ft_strdup(char *s)
+void	ft_strcpy(char *s, char *r)
 {
-	int		i;
-	char	*r;
+	int	i;
 
-	r = malloc(l + 1);
-	if (!r)
-		return (NULL);
 	i = 0;
 	while (s[i])
 	{
 		r[i] = s[i];
 		i++;
 	}
-	r[l] = 0;
+}
+
+void	ft_strlcpy(char *s, char *r, int l)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && i < l)
+	{
+		r[i] = s[i];
+		i++;
+	}
+}
+
+char	*ft_strdup(char *s)
+{
+	int		l;
+	char	*r;
+
+	l = ft_strlen(s);
+	r = malloc(l + 1);
+	if (!r)
+		return (NULL);
+	ft_strcpy(s, r);
+	return (r);
+}
+
+char	*ft_strldup(char *s, int l)
+{
+	char	*r;
+
+	r = malloc(l + 1);
+	if (!r)
+		return (NULL);
+	ft_strlcpy(s, r, l);
 	return (r);
 }
