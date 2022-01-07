@@ -9,6 +9,7 @@ INPUT = \
 	utils.c \
 	utils2.c \
 	utils3.c \
+	utils4.c \
 	envlst.c \
 	envlst2.c \
 	echo.c \

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:39:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 15:01:17 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 15:55:04 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_tuple	ft_ssplit2_dollar_env(t_state *g, t_tuple t, char *s, char *r)
 {
 	int		l;
 	char	*d;
-	char	*u;
 	t_env	*n;
 
 	l = 0;
