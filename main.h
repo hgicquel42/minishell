@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 17:07:22 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 17:35:48 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_getcwd(void);
 
 bool	ft_isenvchr(char c);
 
-t_env	*ft_envlst(char **envp);
+bool	ft_fillenv(t_env **start, char **envp);
 
 t_env	*ft_findenv(t_env *start, char *key);
 
@@ -77,9 +77,9 @@ char	**ft_split(char *s, char c);
 
 int		ft_freel(char **p, int k);
 
-char	**ft_ssplit(t_state *state, char *s, char c);
+char	**ft_ssplit(t_state *state, char *s);
 
-t_tuple	ft_ssplit2(t_state *g, char *s, char *r, char c);
+t_tuple	ft_ssplit2(t_state *g, char *s, char *r);
 
 t_tuple	ft_ssplit2_dollar(t_state *g, t_tuple t, char *s, char *r);
 

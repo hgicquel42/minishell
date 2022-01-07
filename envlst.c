@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:46:59 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 17:07:06 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 17:35:49 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_env	*ft_genenv(char *env)
 		return (NULL);
 	kv = ft_split(env, '=');
 	node->key = kv[0];
-	free(kv);
 	node->val = kv[1];
 	node->next = NULL;
 	return (node);
@@ -64,19 +63,17 @@ void	ft_printenv(t_env *start)
 	}
 }
 
-t_env	*ft_envlst(char **envp)
+bool	ft_fillenv(t_env **start, char **envp)
 {
 	bool	error;
-	t_env	*start;
 
-	start = NULL;
+	*start = NULL;
 	error = false;
 	while (*envp && !error)
-		error += !ft_addenv(&start, *envp++);
-	if (error)
-	{
-		ft_freeenv(start);
-		return (NULL);
-	}
-	return (start);
+		error += !ft_addenv(start, *envp++);
+	if (!error)
+		return (true);
+	if (*start)
+		ft_freeenv(*start);
+	return (false);
 }

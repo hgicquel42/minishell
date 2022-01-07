@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/05 18:25:44 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 17:37:11 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	ft_readline(t_state *s)
 	line = readline("> ");
 	if (!line)
 		return (false);
-	args = ft_ssplit(s, line, ' ');
+	args = ft_ssplit(s, line);
 	if (!args)
 		return (false);
 	if (!args[0])
@@ -50,8 +50,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	state.envlst = ft_envlst(envp);
-	if (!state.envlst)
+	if (!ft_fillenv(&state.envlst, envp))
 		return (1);
 	state.exit = 0;
 	while (!state.exit)

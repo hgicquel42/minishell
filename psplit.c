@@ -6,9 +6,13 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 16:42:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 16:45:39 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 17:12:56 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
+char	**ft_psplit(char *s)
+{
+	(void)s;
+}

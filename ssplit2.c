@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 17:10:06 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 14:22:16 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 17:11:27 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ t_tuple	ft_ssplit2_dquote(t_state *g, t_tuple t, char *s, char *r)
 	return (t);
 }
 
-t_tuple	ft_ssplit2(t_state *g, char *s, char *r, char c)
+t_tuple	ft_ssplit2(t_state *g, char *s, char *r)
 {
 	t_tuple	t;
 
 	t.i = 0;
 	t.o = 0;
-	while (s[t.i] && s[t.i] != c)
+	while (s[t.i] && s[t.i] != ' ')
 	{
 		if (s[t.i] == '$')
 			t = ft_ssplit2_dollar(g, t, s, r);
