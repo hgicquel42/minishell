@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:46:59 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 17:35:49 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 18:54:31 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_env	*ft_genenv(char *env)
 	kv = ft_split(env, '=');
 	node->key = kv[0];
 	node->val = kv[1];
+	ft_free(kv);
 	node->next = NULL;
 	return (node);
 }

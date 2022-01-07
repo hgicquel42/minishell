@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:24:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 17:07:23 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 18:48:46 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,27 @@ int	ft_exec(t_state *s, char **args)
 {
 	char	*path;
 	char	**paths;
+	int		i;
 	char	**env;
 	int		sts;
 
 	env = malloc(1 * sizeof(char *));
 	env[0] = NULL; // TODO
-	paths = ft_paths(s);
 	sts = ft_exec2(args[0], args, env);
 	if (WEXITSTATUS(sts) != 127)
-		return (ft_free(paths) + sts);
-	while (paths && *paths)
+		return (sts);
+	paths = ft_paths(s);
+	i = 0;
+	while (paths && paths[i])
 	{
 		path = ft_strjoin3(*paths, "/", args[0]);
 		sts = ft_exec2(path, args, env);
-		free(path);
+		ft_free(path);
 		if (WEXITSTATUS(sts) != 127)
-			return (ft_free(paths) + sts);
-		paths++;
+			return (ft_freep(paths) + sts);
+		i++;
 	}
 	printf("Not found\n");
-	return (ft_free(paths) + sts);
+	ft_freep(paths);
+	return (sts);
 }

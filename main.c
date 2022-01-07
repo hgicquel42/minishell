@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 17:37:11 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 18:40:42 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ bool	ft_readline(t_state *s)
 	if (!args[0])
 		return (true);
 	s->retval = ft_route(s, args);
+	ft_freep(args);
 	return (true);
 }
 

@@ -6,13 +6,13 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:37:13 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 14:31:52 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 18:51:35 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	ft_strcpy(char *s, char *r, char (*f)(char))
+int	ft_strcpy(char *s, char *r, char (*f)(char))
 {
 	int	i;
 
@@ -22,9 +22,10 @@ void	ft_strcpy(char *s, char *r, char (*f)(char))
 		r[i] = f(s[i]);
 		i++;
 	}
+	return (i);
 }
 
-void	ft_strlcpy(char *s, char *r, int l, char (*f)(char))
+int	ft_strlcpy(char *s, char *r, int l, char (*f)(char))
 {
 	int	i;
 
@@ -34,10 +35,12 @@ void	ft_strlcpy(char *s, char *r, int l, char (*f)(char))
 		r[i] = f(s[i]);
 		i++;
 	}
+	return (i);
 }
 
 char	*ft_strdup(char *s, char (*f)(char))
 {
+	int		i;
 	int		l;
 	char	*r;
 
@@ -45,17 +48,20 @@ char	*ft_strdup(char *s, char (*f)(char))
 	r = malloc(l + 1);
 	if (!r)
 		return (NULL);
-	ft_strcpy(s, r, f);
+	i = ft_strcpy(s, r, f);
+	r[i] = 0;
 	return (r);
 }
 
 char	*ft_strldup(char *s, int l, char (*f)(char))
 {
+	int		i;
 	char	*r;
 
 	r = malloc(l + 1);
 	if (!r)
 		return (NULL);
-	ft_strlcpy(s, r, l, f);
+	i = ft_strlcpy(s, r, l, f);
+	r[i] = 0;
 	return (r);
 }

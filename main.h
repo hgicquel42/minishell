@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 17:35:48 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 18:52:07 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ size_t	ft_strlen(char *s);
 
 bool	ft_putstr(char *s);
 
-void	ft_strcpy(char *s, char *r, char (*f)(char));
+int		ft_strcpy(char *s, char *r, char (*f)(char));
 
-void	ft_strlcpy(char *s, char *r, int l, char (*f)(char));
+int		ft_strlcpy(char *s, char *r, int l, char (*f)(char));
 
 char	*ft_strdup(char *s, char (*f)(char));
 
@@ -74,6 +74,8 @@ bool	ft_fillenv(t_env **start, char **envp);
 t_env	*ft_findenv(t_env *start, char *key);
 
 char	**ft_split(char *s, char c);
+
+int		ft_freep(char **p);
 
 int		ft_freel(char **p, int k);
 
