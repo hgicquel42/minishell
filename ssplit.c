@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:28:36 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/05 15:59:41 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 15:00:38 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_ssplit_count(t_state *state, char *s, char c)
 		while (*s && *s == c)
 			s++;
 		t = ft_ssplit2(state, s, NULL, c);
-		if (t.j)
+		if (t.o)
 			l++;
 		s += t.i;
 	}
@@ -42,14 +42,14 @@ bool	ft_ssplit_copy(t_state *g, char *s, char c, char **p)
 		while (*s && *s == c)
 			s++;
 		t = ft_ssplit2(g, s, NULL, c);
-		if (!t.j)
+		if (!t.o)
 			continue ;
-		r = malloc(t.j + 1);
+		r = malloc(t.o + 1);
 		if (!r)
-			return (ft_split_free(p, k));
+			return (ft_freel(p, k));
 		ft_ssplit2(g, s, r, c);
 		s += t.i;
-		r[t.j] = 0;
+		r[t.o] = 0;
 		p[k++] = r;
 	}
 	return (true);

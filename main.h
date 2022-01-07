@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/05 18:25:23 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 15:00:35 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 typedef struct s_tuple
 {
 	int	i;
-	int	j;
+	int	o;
 }	t_tuple;
 
 typedef struct s_env
@@ -47,6 +47,8 @@ typedef struct s_state
 	t_env	*envlst;
 }	t_state;
 
+int		ft_free(void *p);
+
 int		ft_strcmp(char *a, char *b);
 
 bool	ft_putchr(char c);
@@ -55,13 +57,13 @@ size_t	ft_strlen(char *s);
 
 bool	ft_putstr(char *s);
 
-void	ft_strcpy(char *s, char *r);
+void	ft_strcpy(char *s, char *r, char (*f)(char));
 
-void	ft_strlcpy(char *s, char *r, int l);
+void	ft_strlcpy(char *s, char *r, int l, char (*f)(char));
 
-char	*ft_strdup(char *s);
+char	*ft_strdup(char *s, char (*f)(char));
 
-char	*ft_strldup(char *s, int l);
+char	*ft_strldup(char *s, int l, char (*f)(char));
 
 char	*ft_getcwd(void);
 
@@ -73,7 +75,7 @@ t_env	*ft_findenv(t_env *start, char *key);
 
 char	**ft_split(char *s, char c);
 
-bool	ft_split_free(char **p, int k);
+bool	ft_freel(char **p, int k);
 
 char	**ft_ssplit(t_state *state, char *s, char c);
 
@@ -90,5 +92,9 @@ char	*ft_strjoin3(char *a, char *b, char *c);
 bool	ft_echo(char **args);
 
 int		ft_exec(t_state *s, char **args);
+
+char	ft_chrid(char c);
+
+char	ft_chrup(char c);
 
 #endif

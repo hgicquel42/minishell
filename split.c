@@ -6,22 +6,11 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:03:57 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/05 16:00:09 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 14:59:29 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-bool	ft_split_free(char **p, int k)
-{
-	int	i;
-
-	i = 0 ;
-	while (i < k)
-		free(p[i++]);
-	free(p);
-	return (false);
-}
 
 int	ft_split_count(char *s, char c)
 {
@@ -61,7 +50,7 @@ int	ft_split_copy(char *s, char c, char **r)
 			continue ;
 		w = malloc(j + 1);
 		if (!w)
-			return (ft_split_free(r, k));
+			return (ft_freel(r, k));
 		j = 0;
 		while (*s && *s != c)
 			w[j++] = *(s++);

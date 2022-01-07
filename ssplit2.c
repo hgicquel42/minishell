@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 17:10:06 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/05 16:39:42 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 14:22:16 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_tuple	ft_ssplit2_squote(t_state *g, t_tuple t, char *s, char *r)
 	(void)g;
 	t.i++;
 	while (s[t.i] && s[t.i] != '\'')
-		ft_chrcpy(r, t.j++, s[t.i++]);
+		ft_chrcpy(r, t.o++, s[t.i++]);
 	t.i++;
 	return (t);
 }
@@ -36,7 +36,7 @@ t_tuple	ft_ssplit2_dquote(t_state *g, t_tuple t, char *s, char *r)
 		if (s[t.i] == '$')
 			t = ft_ssplit2_dollar(g, t, s, r);
 		else
-			ft_chrcpy(r, t.j++, s[t.i++]);
+			ft_chrcpy(r, t.o++, s[t.i++]);
 	}
 	t.i++;
 	return (t);
@@ -47,7 +47,7 @@ t_tuple	ft_ssplit2(t_state *g, char *s, char *r, char c)
 	t_tuple	t;
 
 	t.i = 0;
-	t.j = 0;
+	t.o = 0;
 	while (s[t.i] && s[t.i] != c)
 	{
 		if (s[t.i] == '$')
@@ -57,7 +57,7 @@ t_tuple	ft_ssplit2(t_state *g, char *s, char *r, char c)
 		else if (s[t.i] == '\'')
 			t = ft_ssplit2_squote(g, t, s, r);
 		else
-			ft_chrcpy(r, t.j++, s[t.i++]);
+			ft_chrcpy(r, t.o++, s[t.i++]);
 	}
 	return (t);
 }
