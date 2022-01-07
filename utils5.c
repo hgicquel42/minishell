@@ -1,46 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 13:29:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 16:58:44 by hgicquel         ###   ########.fr       */
+/*   Created: 2022/01/07 16:58:31 by hgicquel          #+#    #+#             */
+/*   Updated: 2022/01/07 16:58:34 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-size_t	ft_strlen(char *s)
+int	ft_free(void *p)
 {
-	size_t	l;
-
-	l = 0;
-	while (s[l])
-		l++;
-	return (l);
+	if (p)
+		free(p);
+	return (0);
 }
 
-int	ft_strcmp(char *a, char *b)
+int	ft_freel(char **p, int l)
 {
 	int	i;
 
-	i = 0;
-	while (a[i] && a[i] == b[i])
-		i++;
-	return (a[i] - b[i]);
-}
-
-bool	ft_putchr(char c)
-{
-	return (write(1, &c, 1) == 1);
-}
-
-bool	ft_putstr(char *s)
-{
-	ssize_t	l;
-
-	l = (ssize_t) ft_strlen(s);
-	return (write(1, s, l) == l);
+	i = 0 ;
+	while (i < l)
+		free(p[i++]);
+	free(p);
+	return (0);
 }

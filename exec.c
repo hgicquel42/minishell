@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:24:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 14:28:06 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 17:07:23 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**ft_paths(t_state *s)
 
 	pathn = ft_findenv(s->envlst, "PATH");
 	if (pathn)
-		return (ft_split(pathn->value, ':'));
+		return (ft_split(pathn->val, ':'));
 	return (NULL);
 }
 
@@ -57,7 +57,7 @@ int	ft_exec(t_state *s, char **args)
 	{
 		path = ft_strjoin3(*paths, "/", args[0]);
 		sts = ft_exec2(path, args, env);
-		ft_free(path);
+		free(path);
 		if (WEXITSTATUS(sts) != 127)
 			return (ft_free(paths) + sts);
 		paths++;

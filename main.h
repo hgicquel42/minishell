@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 15:55:34 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 17:07:22 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_tuple
 typedef struct s_env
 {
 	char			*key;
-	char			*value;
+	char			*val;
 	struct s_env	*next;
 }	t_env;
 

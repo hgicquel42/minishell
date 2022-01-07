@@ -6,17 +6,19 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:46:59 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/05 16:36:38 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/07 17:07:06 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	ft_freeenv(t_env *start)
+void	ft_freeenv(t_env *envn)
 {
-	if (start->next)
-		ft_freeenv(start->next);
-	free(start);
+	if (envn->next)
+		ft_freeenv(envn->next);
+	free(envn->key);
+	free(envn->val);
+	free(envn);
 }
 
 t_env	*ft_genenv(char *env)
@@ -29,7 +31,8 @@ t_env	*ft_genenv(char *env)
 		return (NULL);
 	kv = ft_split(env, '=');
 	node->key = kv[0];
-	node->value = kv[1];
+	free(kv);
+	node->val = kv[1];
 	node->next = NULL;
 	return (node);
 }
@@ -56,7 +59,7 @@ void	ft_printenv(t_env *start)
 	curr = start;
 	while (curr)
 	{
-		printf("%s=%s\n", curr->key, curr->value);
+		printf("%s=%s\n", curr->key, curr->val);
 		curr = curr->next;
 	}
 }
