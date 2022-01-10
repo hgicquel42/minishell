@@ -6,26 +6,11 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 14:34:30 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:19:38 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-int	ft_route(t_state *s, char **args)
-{
-	if (!ft_strcmp(args[0], "echo"))
-		return (!ft_echo(args + 1));
-	else if (!ft_strcmp(args[0], "pwd"))
-		printf("%s\n", ft_getcwd());
-	else if (!ft_strcmp(args[0], "cd"))
-		chdir(args[1]);
-	else if (!ft_strcmp(args[0], "exit"))
-		s->exit = true;
-	else
-		return (ft_exec(s, args));
-	return (0);
-}
 
 bool	ft_readcmd(t_state *g, char *cmd)
 {
@@ -40,6 +25,11 @@ bool	ft_readcmd(t_state *g, char *cmd)
 		g->retval = ft_route(g, args);
 	ft_freep(args);
 	return (true);
+}
+
+bool	ft_runall(t_state *g, t_cmd **cmds)
+{
+	
 }
 
 bool	ft_readline(t_state *g)

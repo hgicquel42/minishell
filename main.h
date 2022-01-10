@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 14:21:01 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:10:22 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ typedef struct s_tuple
 	int	o;
 }	t_tuple;
 
+typedef struct s_cmd
+{
+	char	**args;
+	char	**envp;
+	int		fdin;
+	int		fdout;
+}	t_cmd;
+
 typedef struct s_env
 {
 	char			*key;
@@ -43,7 +51,7 @@ typedef struct s_env
 typedef struct s_state
 {
 	bool	exit;
-	bool	retval;
+	int		retval;
 	t_env	*envlst;
 }	t_state;
 
