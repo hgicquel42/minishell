@@ -5,61 +5,52 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 17:10:06 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 18:33:19 by hgicquel         ###   ########.fr       */
+/*   Created: 2022/01/05 16:39:02 by hgicquel          #+#    #+#             */
+/*   Updated: 2022/01/10 14:09:31 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	ft_chrcpy(char *r, int i, char c)
+t_tuple	ft_ssplit_dollar_ret(t_state *g, t_tuple t, char *s, char *r)
 {
-	if (r)
-		r[i] = c;
-}
-
-t_tuple	ft_ssplit2_squote(t_state *g, t_tuple t, char *s, char *r)
-{
-	(void)g;
+	(void)s;
 	t.i++;
-	while (s[t.i] && s[t.i] != '\'')
-		ft_chrcpy(r, t.o++, s[t.i++]);
-	t.i++;
+	if (g->retval)
+		ft_chrcpy(r, t.o++, '1');
+	else
+		ft_chrcpy(r, t.o++, '0');
 	return (t);
 }
 
-t_tuple	ft_ssplit2_dquote(t_state *g, t_tuple t, char *s, char *r)
+t_tuple	ft_ssplit_dollar_env(t_state *g, t_tuple t, char *s, char *r)
 {
-	t.i++;
-	while (s[t.i] && s[t.i] != '"')
+	int		l;
+	char	*d;
+	t_env	*n;
+
+	l = 0;
+	while (ft_isenvchr(s[t.i + l]))
+		l++;
+	d = ft_strldup(s + t.i, l, ft_chrup);
+	n = ft_findenv(g->envlst, d);
+	t.i += l;
+	if (n)
 	{
-		if (s[t.i] == '$')
-			t = ft_ssplit2_dollar(g, t, s, r);
-		else
-			ft_chrcpy(r, t.o++, s[t.i++]);
+		l = ft_strlen(n->val);
+		if (r)
+			ft_strlcpy(n->val, r + t.o, l, ft_chrid);
+		t.o += l;
 	}
-	t.i++;
+	free(d);
 	return (t);
 }
 
-t_tuple	ft_ssplit2(t_state *g, char *s, char *r)
+t_tuple	ft_ssplit_dollar(t_state *g, t_tuple t, char *s, char *r)
 {
-	t_tuple	t;
-
-	t.i = 0;
-	t.o = 0;
-	while (s[t.i] && s[t.i] != ' ')
-	{
-		if (s[t.i] == '$')
-			t = ft_ssplit2_dollar(g, t, s, r);
-		if (s[t.i] == '"')
-			t = ft_ssplit2_dquote(g, t, s, r);
-		else if (s[t.i] == '\'')
-			t = ft_ssplit2_squote(g, t, s, r);
-		else
-			ft_chrcpy(r, t.o++, s[t.i++]);
-	}
-	if (r)
-		r[t.o] = 0;
-	return (t);
+	t.i++;
+	if (s[t.i] == '?')
+		return (ft_ssplit_dollar_ret(g, t, s, r));
+	else
+		return (ft_ssplit_dollar_env(g, t, s, r));
 }

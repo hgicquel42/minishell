@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 18:40:42 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/10 14:34:30 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,38 @@ int	ft_route(t_state *s, char **args)
 	return (0);
 }
 
-bool	ft_readline(t_state *s)
+bool	ft_readcmd(t_state *g, char *cmd)
+{
+	char	**args;
+
+	if (cmd[0] == '|')
+		return (true);
+	args = ft_xsplit(g, cmd, ft_ssplit);
+	if (!args)
+		return (false);
+	if (args[0])
+		g->retval = ft_route(g, args);
+	ft_freep(args);
+	return (true);
+}
+
+bool	ft_readline(t_state *g)
 {
 	char	*line;
-	char	**args;
+	char	**cmds;
+	int		i;
 
 	line = readline("> ");
 	if (!line)
 		return (false);
-	args = ft_ssplit(s, line);
-	if (!args)
+	cmds = ft_xsplit(g, line, ft_psplit);
+	if (!cmds)
 		return (false);
-	if (!args[0])
-		return (true);
-	s->retval = ft_route(s, args);
-	ft_freep(args);
+	i = 0;
+	while (cmds[i])
+		if (!ft_readcmd(g, cmds[i++]))
+			return (ft_freep(cmds) + false);
+	ft_freep(cmds);
 	return (true);
 }
 

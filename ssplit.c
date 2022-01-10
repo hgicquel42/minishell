@@ -5,57 +5,55 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 13:28:36 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 18:39:09 by hgicquel         ###   ########.fr       */
+/*   Created: 2022/01/03 17:10:06 by hgicquel          #+#    #+#             */
+/*   Updated: 2022/01/10 14:10:10 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	ft_ssplit_loop(t_state *g, char *s, char **p)
+t_tuple	ft_ssplit_squote(t_state *g, t_tuple t, char *s, char *r)
 {
-	t_tuple	t;
-	int		l;
-	char	*r;
-
-	l = 0;
-	while (*s)
-	{
-		while (*s && *s == ' ')
-			s++;
-		t = ft_ssplit2(g, s, NULL);
-		if (t.o && !p)
-			l++;
-		if (t.o && p)
-		{
-			r = malloc(t.o + 1);
-			if (!r)
-				return (l);
-			t = ft_ssplit2(g, s, r);
-			p[l++] = r;
-		}
-		s += t.i;
-	}
-	if (p)
-		p[l] = 0;
-	return (l);
+	(void)g;
+	t.i++;
+	while (s[t.i] && s[t.i] != '\'')
+		ft_chrcpy(r, t.o++, s[t.i++]);
+	t.i++;
+	return (t);
 }
 
-char	**ft_ssplit(t_state *g, char *s)
+t_tuple	ft_ssplit_dquote(t_state *g, t_tuple t, char *s, char *r)
 {
-	int		l;
-	int		m;
-	char	**p;
-
-	l = ft_ssplit_loop(g, s, NULL);
-	p = malloc((l + 1) * sizeof(char *));
-	if (!p)
-		return (0);
-	m = ft_ssplit_loop(g, s, p);
-	if (l != m)
+	t.i++;
+	while (s[t.i] && s[t.i] != '"')
 	{
-		ft_freel(p, m);
-		return (NULL);
+		if (s[t.i] == '$')
+			t = ft_ssplit_dollar(g, t, s, r);
+		else
+			ft_chrcpy(r, t.o++, s[t.i++]);
 	}
-	return (p);
+	t.i++;
+	return (t);
+}
+
+t_tuple	ft_ssplit(t_state *g, char *s, char *r)
+{
+	t_tuple	t;
+
+	t.i = 0;
+	t.o = 0;
+	while (s[t.i] && s[t.i] != ' ')
+	{
+		if (s[t.i] == '$')
+			t = ft_ssplit_dollar(g, t, s, r);
+		if (s[t.i] == '"')
+			t = ft_ssplit_dquote(g, t, s, r);
+		else if (s[t.i] == '\'')
+			t = ft_ssplit_squote(g, t, s, r);
+		else
+			ft_chrcpy(r, t.o++, s[t.i++]);
+	}
+	if (r)
+		r[t.o] = 0;
+	return (t);
 }

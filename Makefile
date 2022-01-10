@@ -3,9 +3,10 @@ NAME = minishell
 INPUT = \
 	main.c \
 	split.c \
+	xsplit.c \
 	ssplit.c \
 	ssplit2.c \
-	ssplit3.c \
+	psplit.c \
 	utils.c \
 	utils2.c \
 	utils3.c \

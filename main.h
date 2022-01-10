@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 18:52:07 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/10 14:21:01 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,15 @@ int		ft_freep(char **p);
 
 int		ft_freel(char **p, int k);
 
-char	**ft_ssplit(t_state *state, char *s);
+char	**ft_xsplit(
+			t_state *g, char *s,
+			t_tuple (*f)(t_state *g, char *s, char *r));
 
-t_tuple	ft_ssplit2(t_state *g, char *s, char *r);
+t_tuple	ft_psplit(t_state *g, char *s, char *r);
 
-t_tuple	ft_ssplit2_dollar(t_state *g, t_tuple t, char *s, char *r);
+t_tuple	ft_ssplit(t_state *g, char *s, char *r);
+
+t_tuple	ft_ssplit_dollar(t_state *g, t_tuple t, char *s, char *r);
 
 void	ft_chrcpy(char *r, int i, char c);
 
