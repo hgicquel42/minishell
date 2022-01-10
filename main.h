@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 15:10:22 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/10 16:31:05 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ typedef struct s_cmd
 {
 	char	**args;
 	char	**envp;
-	int		fdin;
-	int		fdout;
+	pid_t	pid;
+	int		fdi;
+	int		fdo;
 }	t_cmd;
 
 typedef struct s_env
@@ -83,9 +84,9 @@ t_env	*ft_findenv(t_env *start, char *key);
 
 char	**ft_split(char *s, char c);
 
-int		ft_freep(char **p);
+int		ft_freep(void **p);
 
-int		ft_freel(char **p, int k);
+int		ft_freel(void **p, int k);
 
 char	**ft_xsplit(
 			t_state *g, char *s,
@@ -103,9 +104,13 @@ char	*ft_strjoin2(char *a, char *b);
 
 char	*ft_strjoin3(char *a, char *b, char *c);
 
-bool	ft_echo(char **args);
+int		ft_route(t_state *s, t_cmd *cmd);
 
-int		ft_exec(t_state *s, char **args);
+int		ft_echo(char **args, char **envp);
+
+int		ft_exec(t_state *g, t_cmd *cmd);
+
+pid_t	ft_run(t_state *s, t_cmd *cmd);
 
 char	ft_chrid(char c);
 

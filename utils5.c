@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 16:58:31 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 18:15:41 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/10 16:31:09 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_free(void *p)
 	return (0);
 }
 
-int	ft_freep(char **p)
+int	ft_freep(void **p)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ int	ft_freep(char **p)
 	return (0);
 }
 
-int	ft_freel(char **p, int l)
+int	ft_freel(void **p, int l)
 {
 	int	i;
 
