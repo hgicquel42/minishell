@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 17:41:36 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/10 17:42:10 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool	ft_readline(t_state *g)
 	char	*line;
 	char	**cmds;
 	t_cmd	**cmds2;
-	int		pfds[2];
+	int		fd[2];
 	int		i;
 	int		l;
 
@@ -83,9 +83,9 @@ bool	ft_readline(t_state *g)
 		{
 			if (cmds[i + 1] && !ft_strcmp(cmds[i + 1], "|") && cmds2[i + 2])
 			{
-				pipe(pfds);
-				cmds2[i]->fdo = pfds;
-				cmds2[i + 2]->fdi = pfds;
+				pipe(fd);
+				cmds2[i]->fdo = fd;
+				cmds2[i + 2]->fdi = fd;
 			}
 			cmds2[i]->pid = ft_run(g, cmds2[i]);
 		}
