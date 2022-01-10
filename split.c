@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:03:57 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 14:59:29 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/10 16:39:49 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_split_count(char *s, char c)
 	return (l);
 }
 
-int	ft_split_copy(char *s, char c, char **r)
+bool	ft_split_copy(char *s, char c, char **r)
 {
 	size_t	j;
 	size_t	k;
@@ -50,14 +50,14 @@ int	ft_split_copy(char *s, char c, char **r)
 			continue ;
 		w = malloc(j + 1);
 		if (!w)
-			return (ft_freel(r, k));
+			return (false);
 		j = 0;
 		while (*s && *s != c)
 			w[j++] = *(s++);
 		w[j] = 0;
 		r[k++] = w;
 	}
-	return (1);
+	return (true);
 }
 
 char	**ft_split(char *s, char c)

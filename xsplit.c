@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:28:36 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 14:21:08 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/10 16:40:36 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ char	**ft_xsplit(
 		return (0);
 	m = ft_xsplit_loop(g, s, p, f);
 	if (l != m)
-	{
-		ft_freel(p, m);
 		return (NULL);
-	}
 	return (p);
 }
