@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 17:42:10 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/11 14:26:18 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool	ft_readline(t_state *g)
 	char	*line;
 	char	**cmds;
 	t_cmd	**cmds2;
-	int		fd[2];
+	int		*fd;
 	int		i;
 	int		l;
 
@@ -83,11 +83,19 @@ bool	ft_readline(t_state *g)
 		{
 			if (cmds[i + 1] && !ft_strcmp(cmds[i + 1], "|") && cmds2[i + 2])
 			{
-				pipe(fd);
+				fd = malloc(2 * sizeof(int));
+				if (!fd)
+					return (false);
+				if (pipe(fd) == -1)
+					return (false);
 				cmds2[i]->fdo = fd;
 				cmds2[i + 2]->fdi = fd;
 			}
 			cmds2[i]->pid = ft_run(g, cmds2[i]);
+			if (cmds2[i]->fdi)
+				close(cmds2[i]->fdi[0]);
+			if (cmds2[i]->fdo)
+				close(cmds2[i]->fdo[1]);
 		}
 		i++;
 	}
@@ -95,16 +103,7 @@ bool	ft_readline(t_state *g)
 	while (i < l)
 	{
 		if (cmds2[i])
-		{
 			waitpid(cmds2[i]->pid, NULL, 0);
-			if (cmds[i + 1] && !ft_strcmp(cmds[i + 1], "|") && cmds2[i + 2])
-			{
-				close(cmds2[i]->fdo[0]);
-				close(cmds2[i]->fdo[1]);
-				close(cmds2[i + 2]->fdi[0]);
-				close(cmds2[i + 2]->fdi[1]);
-			}
-		}
 		i++;
 	}
 	ft_freep((void *) cmds);
