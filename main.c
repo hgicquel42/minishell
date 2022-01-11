@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/11 14:26:18 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/11 14:59:33 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,17 @@ t_cmd	**ft_convertall(t_state *g, char **cmds, int l)
 	return (p);
 }
 
-bool	ft_readline(t_state *g)
+bool	ft_runall(t_state *g, char **cmds, int l)
 {
-	char	*line;
-	char	**cmds;
 	t_cmd	**cmds2;
-	int		*fd;
+	int		*fds;
 	int		i;
-	int		l;
 
-	line = readline("> ");
-	if (!line)
-		return (false);
-	cmds = ft_xsplit(g, line, ft_psplit);
-	if (!cmds)
-		return (false);
-	l = 0;
-	while (cmds[l])
-		l++;
 	cmds2 = ft_convertall(g, cmds, l);
 	if (!cmds2)
+		return (false);
+	fds = malloc((l * 2) * sizeof(int));
+	if (!fds)
 		return (false);
 	i = 0;
 	while (i < l)
@@ -83,13 +74,14 @@ bool	ft_readline(t_state *g)
 		{
 			if (cmds[i + 1] && !ft_strcmp(cmds[i + 1], "|") && cmds2[i + 2])
 			{
-				fd = malloc(2 * sizeof(int));
-				if (!fd)
+				if (pipe(fds + (i * 2)) == -1)
 					return (false);
-				if (pipe(fd) == -1)
-					return (false);
-				cmds2[i]->fdo = fd;
-				cmds2[i + 2]->fdi = fd;
+				cmds2[i]->fdo = fds + (i * 2);
+				cmds2[i + 2]->fdi = fds + (i * 2);
+			}
+			if (cmds[i + 1] && !ft_strcmp(cmds[i + 1], ">") && cmds2[i + 2])
+			{
+				printf("redirection\n");
 			}
 			cmds2[i]->pid = ft_run(g, cmds2[i]);
 			if (cmds2[i]->fdi)
@@ -108,7 +100,26 @@ bool	ft_readline(t_state *g)
 	}
 	ft_freep((void *) cmds);
 	ft_freep((void *) cmds2);
+	ft_free((void *) fds);
 	return (true);
+}
+
+bool	ft_readline(t_state *g)
+{
+	char	*line;
+	char	**cmds;
+	int		l;
+
+	line = readline("> ");
+	if (!line)
+		return (false);
+	cmds = ft_xsplit(g, line, ft_psplit);
+	if (!cmds)
+		return (false);
+	l = 0;
+	while (cmds[l])
+		l++;
+	return (ft_runall(g, cmds, l));
 }
 
 int	main(int argc, char **argv, char **envp)

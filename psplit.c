@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:03:14 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 14:16:57 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/11 14:50:49 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ t_tuple	ft_psplit(t_state *g, char *s, char *r)
 	while (s[t.i])
 	{
 		if (s[t.i] == '|')
+		{
+			if (!t.o)
+				ft_chrcpy(r, t.o++, s[t.i++]);
+			break ;
+		}
+		if (s[t.i] == '>')
 		{
 			if (!t.o)
 				ft_chrcpy(r, t.o++, s[t.i++]);
