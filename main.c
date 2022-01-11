@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/11 14:59:33 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:13:35 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ t_cmd	*ft_convert(t_state *g, char *cmd)
 		return (NULL);
 	r->envp = NULL;
 	r->pid = 0;
-	r->fdi = NULL;
-	r->fdo = NULL;
+	r->fdi = -1;
+	r->fdo = -1;
 	return (r);
 }
 
@@ -43,6 +43,8 @@ t_cmd	**ft_convertall(t_state *g, char **cmds, int l)
 	{
 		if (!ft_strcmp(cmds[i], "|"))
 			p[i++] = NULL;
+		else if (!ft_strcmp(cmds[i], ">"))
+			p[i++] = NULL;
 		else
 		{
 			r = ft_convert(g, cmds[i]);
@@ -58,36 +60,41 @@ t_cmd	**ft_convertall(t_state *g, char **cmds, int l)
 bool	ft_runall(t_state *g, char **cmds, int l)
 {
 	t_cmd	**cmds2;
-	int		*fds;
+	int		*pipes;
+	bool	bracket;
 	int		i;
 
 	cmds2 = ft_convertall(g, cmds, l);
 	if (!cmds2)
 		return (false);
-	fds = malloc((l * 2) * sizeof(int));
-	if (!fds)
+	pipes = malloc((l * 2) * sizeof(int));
+	if (!pipes)
 		return (false);
 	i = 0;
+	bracket = false;
 	while (i < l)
 	{
-		if (cmds2[i])
+		if (cmds2[i] && bracket)
+			bracket = false;
+		else if (cmds2[i])
 		{
 			if (cmds[i + 1] && !ft_strcmp(cmds[i + 1], "|") && cmds2[i + 2])
 			{
-				if (pipe(fds + (i * 2)) == -1)
+				if (pipe(pipes + (i * 2)) == -1)
 					return (false);
-				cmds2[i]->fdo = fds + (i * 2);
-				cmds2[i + 2]->fdi = fds + (i * 2);
+				cmds2[i]->fdo = (pipes + (i * 2))[1];
+				cmds2[i + 2]->fdi = (pipes + (i * 2))[0];
 			}
 			if (cmds[i + 1] && !ft_strcmp(cmds[i + 1], ">") && cmds2[i + 2])
 			{
-				printf("redirection\n");
+				cmds2[i]->fdo = open(cmds2[i + 2]->args[0], O_WRONLY | O_CREAT, 0644);
+				bracket = true;
 			}
 			cmds2[i]->pid = ft_run(g, cmds2[i]);
-			if (cmds2[i]->fdi)
-				close(cmds2[i]->fdi[0]);
-			if (cmds2[i]->fdo)
-				close(cmds2[i]->fdo[1]);
+			if (cmds2[i]->fdi != -1)
+				close(cmds2[i]->fdi);
+			if (cmds2[i]->fdo != -1)
+				close(cmds2[i]->fdo);
 		}
 		i++;
 	}
@@ -100,7 +107,7 @@ bool	ft_runall(t_state *g, char **cmds, int l)
 	}
 	ft_freep((void *) cmds);
 	ft_freep((void *) cmds2);
-	ft_free((void *) fds);
+	ft_free((void *) pipes);
 	return (true);
 }
 

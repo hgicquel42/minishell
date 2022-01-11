@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:24:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/11 14:32:34 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/11 15:27:54 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,15 @@ pid_t	ft_run(t_state *s, t_cmd *cmd)
 	pid = fork();
 	if (pid)
 		return (pid);
-	if (cmd->fdi)
+	if (cmd->fdi != -1)
 	{
-		dup2(cmd->fdi[0], STDIN_FILENO);
-		close(cmd->fdi[0]);
+		dup2(cmd->fdi, STDIN_FILENO);
+		close(cmd->fdi);
 	}
-	if (cmd->fdo)
+	if (cmd->fdo != -1)
 	{
-		dup2(cmd->fdo[1], STDOUT_FILENO);
-		close(cmd->fdo[1]);
+		dup2(cmd->fdo, STDOUT_FILENO);
+		close(cmd->fdo);
 	}
 	exit(ft_route(s, cmd));
 }
