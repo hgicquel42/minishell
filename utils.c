@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:29:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 16:58:44 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 18:23:13 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ int	ft_strcmp(char *a, char *b)
 	return (a[i] - b[i]);
 }
 
-bool	ft_putchr(char c)
+bool	ft_putchr(int fd, char c)
 {
-	return (write(1, &c, 1) == 1);
+	return (write(fd, &c, 1) == 1);
 }
 
-bool	ft_putstr(char *s)
+bool	ft_putstr(int fd, char *s)
 {
 	ssize_t	l;
 
 	l = (ssize_t) ft_strlen(s);
-	return (write(1, s, l) == l);
+	return (write(fd, s, l) == l);
 }

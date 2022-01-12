@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 13:35:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 16:15:57 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 18:23:19 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	ft_echo2(char **args)
 
 	i = 0;
 	while (args[i])
-		if ((i > 0 && !ft_putchr(' ')) || !ft_putstr(args[i++]))
+		if ((i > 0 && !ft_putchr(1, ' ')) || !ft_putstr(1, args[i++]))
 			return (false);
 	return (true);
 }
@@ -31,6 +31,6 @@ int	ft_echo(char **args, char **envp)
 	if (args[1] && !ft_strcmp(args[1], "-n"))
 		return (!ft_echo2(args + 2));
 	result = ft_echo2(args + 1);
-	ft_putchr('\n');
+	ft_putchr(1, '\n');
 	return (!result);
 }
