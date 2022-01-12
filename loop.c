@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 15:11:44 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 16:35:04 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,15 @@ char	*ft_readline(t_state *g)
 {
 	char	*line;
 
+	signal(SIGINT, sigint);
+	signal(SIGQUIT, SIG_IGN);
 	if (g->retval)
 		line = readline("\033[0;31m$>_\033[0m ");
 	else
 		line = readline("\033[0;32m$>_\033[0m ");
 	add_history(line);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	return (line);
 }
 

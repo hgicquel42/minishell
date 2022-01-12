@@ -6,11 +6,21 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 15:12:02 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 16:34:15 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+void	sigint(int sig)
+{
+	if (sig != SIGINT)
+		exit(1);
+	ft_putchr('\n');
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
 int	main(int argc, char **argv, char **envp)
 {

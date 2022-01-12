@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:24:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 15:12:47 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 16:29:57 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ pid_t	ft_run(t_state *g, t_cmd *cmd)
 	pid = fork();
 	if (pid)
 		return (pid);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	cmd->envp = ft_envtostr(g->envlst);
 	if (cmd->fdi != -1)
 	{
