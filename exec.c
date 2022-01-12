@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:24:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 18:22:58 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:07:31 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ pid_t	ft_run(t_state *g, t_cmd *cmd)
 		close(cmd->fdo);
 	}
 	if (sts == 127)
-		exit(ft_route_fork(g, cmd));
-	else
-		exit(sts);
+		sts = ft_route_fork(g, cmd);
+	exit(sts);
 }

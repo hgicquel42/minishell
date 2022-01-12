@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 18:23:49 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:04:58 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ bool	ft_waitall(t_state *g, t_ldata d, int l)
 	while (i < l)
 	{
 		if (d.cmds[i])
+		{
 			waitpid(d.cmds[i]->pid, &s, 0);
+			ft_freep((void *) d.cmds[i]->args);
+			ft_freep((void *) d.cmds[i]->envp);
+		}
 		if (s)
 			r = s;
 		i++;
@@ -165,8 +169,8 @@ bool	ft_loop(t_state *g)
 		return (false);
 	if (!ft_waitall(g, d, l))
 		return (false);
-	ft_freep((void *) d.prts);
-	ft_freep((void *) d.cmds);
+	ft_freel((void *) d.prts, l);
+	ft_freel((void *) d.cmds, l);
 	ft_free((void *) d.pipes);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 18:22:42 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 18:46:54 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ int		ft_env(char **args, char **envp);
 bool	ft_addenv(t_env **start, char *key, char *val);
 
 void	ft_remenv(t_env **start, char *key);
+
+void	ft_freeenv(t_env *envn);
 
 bool	ft_setenv(t_env **start, char *key, char *val);
 

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:39:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 15:03:43 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 18:36:28 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_tuple	ft_ssplit_dollar_env(t_state *g, t_tuple t, char *s, char *r)
 	if (n)
 	{
 		l = ft_strlen(n->val);
-		if (r) // TODO: transformer les ':' en espace 
+		if (r)
 			ft_strlcpy(n->val, r + t.o, l, ft_chrid);
 		t.o += l;
 	}
