@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:24:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 16:58:03 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:49:23 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	ft_route_parent(t_state *g, t_cmd *cmd)
 		return (chdir(cmd->args[1]) == -1);
 	else if (!ft_strcmp(cmd->args[0], "unset"))
 		return (ft_unset(g, cmd->args, cmd->envp));
+	else if (!ft_strcmp(cmd->args[0], "export"))
+		return (ft_export(g, cmd->args, cmd->envp));
 	else if (!ft_strcmp(cmd->args[0], "exit"))
 		g->exit = true;
 	else

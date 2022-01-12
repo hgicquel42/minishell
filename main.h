@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 17:23:28 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:50:26 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ char	*ft_getcwd(void);
 
 bool	ft_isenvchr(char c);
 
+bool	ft_isenvstr(char *s);
+
 bool	ft_fillenv(t_env **start, char **envp);
 
 t_env	*ft_findenv(t_env *start, char *key);
@@ -138,6 +140,10 @@ bool	ft_addenv(t_env **start, char *key, char *val);
 
 void	ft_remenv(t_env **start, char *key);
 
+bool	ft_setenv(t_env **start, char *key, char *val);
+
 int		ft_unset(t_state *g, char **args, char **envp);
+
+int		ft_export(t_state *g, char **args, char **envp);
 
 #endif
