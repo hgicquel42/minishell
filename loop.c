@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 14:17:55 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:26:54 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*ft_readline(t_state *g)
 		line = readline("\033[0;31m$>_\033[0m ");
 	else
 		line = readline("\033[0;32m$>_\033[0m ");
+	add_history(line);
 	return (line);
 }
 
@@ -79,10 +80,12 @@ bool	ft_runall(t_state *g, t_ldata d, int l)
 	bool	s;
 
 	i = 0;
+	s = false;
 	while (i < l)
 	{
 		if (d.cmds[i])
 		{
+			printf("%s\n", d.prts[i]);
 			if (d.prts[i + 1] && d.cmds[i + 2])
 				if (!ft_route_cmd_io(d, i, &s))
 					return (false);
@@ -92,7 +95,7 @@ bool	ft_runall(t_state *g, t_ldata d, int l)
 			if (d.cmds[i]->fdo != -1)
 				close(d.cmds[i]->fdo);
 			if (s)
-				i++;
+				i += 2;
 			s = false;
 		}
 		i++;
