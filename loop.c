@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 19:10:20 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:35:22 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,29 @@ bool	ft_waitall(t_state *g, t_ldata d, int l)
 bool	ft_runall(t_state *g, t_ldata d, int l)
 {
 	int		i;
-	bool	s;
+	int		s;
+	bool	p;
 
 	i = 0;
-	s = false;
 	while (i < l)
 	{
+		p = 0;
+		s = 0;
 		if (d.cmds[i])
-		{
-			if (d.prts[i + 1] && d.cmds[i + 2])
-				if (!ft_route_cmd_io(d, i, &s))
+		{			
+			while (!p && d.prts[i + s + 1] && d.cmds[i + s + 2])
+			{
+				if (!ft_route_cmd_io(d, i, &s, &p))
 					return (false);
+			}
+				
 			d.cmds[i]->pid = ft_run(g, d.cmds[i]);
 			if (d.cmds[i]->fdi != -1)
 				close(d.cmds[i]->fdi);
 			if (d.cmds[i]->fdo != -1)
 				close(d.cmds[i]->fdo);
 			if (s)
-				i += 2;
-			s = false;
+				i += s;
 		}
 		i++;
 	}

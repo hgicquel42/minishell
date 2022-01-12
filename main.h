@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 19:10:40 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:25:52 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,6 @@ int		ft_unset(t_state *g, char **args, char **envp);
 
 int		ft_export(t_state *g, char **args, char **envp);
 
-bool	ft_route_cmd_io(t_ldata d, int i, bool *s);
+bool	ft_route_cmd_io(t_ldata d, int i, int *s, bool *p);
 
 #endif
