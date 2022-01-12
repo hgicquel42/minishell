@@ -20,6 +20,7 @@ INPUT = \
 	loop.c \
 	convert.c \
 	env.c \
+	cmdio.c \
 
 OUTPUT = ${INPUT:.c=.o}
 

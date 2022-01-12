@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 19:04:58 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:10:20 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,60 +33,6 @@ bool	ft_waitall(t_state *g, t_ldata d, int l)
 		i++;
 	}
 	g->retval = r;
-	return (true);
-}
-
-bool	ft_route_cmd_io(t_ldata d, int i, bool *s)
-{
-	int		currfdo;
-	char	*currline;
-
-	if (!ft_strcmp(d.prts[i + 1], "|"))
-	{
-		if (pipe(d.pipes + (i * 2)) == -1)
-			return (false);
-		d.cmds[i]->fdo = (d.pipes + (i * 2))[1];
-		d.cmds[i + 2]->fdi = (d.pipes + (i * 2))[0];
-	}
-	if (!ft_strcmp(d.prts[i + 1], ">>"))
-	{
-		d.cmds[i]->fdo = open(d.cmds[i + 2]->args[0],
-				O_WRONLY | O_CREAT | O_APPEND, 0644);
-		*s = true;
-	}
-	if (!ft_strcmp(d.prts[i + 1], "<<"))
-	{
-		if (pipe(d.pipes + (i * 2)) == -1)
-			return (false);
-		currfdo = (d.pipes + (i * 2))[1];
-		d.cmds[i]->fdi = (d.pipes + (i * 2))[0];
-		while (1)
-		{
-			currline = readline("> ");
-			if (!currline[0])
-				break ;
-			if (!ft_strcmp(currline, d.prts[i + 2]))
-				break ;
-			if (!ft_putstr(currfdo, currline))
-				break ;
-			if (!ft_putchr(currfdo, '\n'))
-				break ;
-		}
-		close(currfdo);
-		*s = true;
-	}
-	if (!ft_strcmp(d.prts[i + 1], ">"))
-	{
-		d.cmds[i]->fdo = open(d.cmds[i + 2]->args[0],
-				O_WRONLY | O_CREAT, 0644);
-		*s = true;
-	}
-	if (!ft_strcmp(d.prts[i + 1], "<"))
-	{
-		d.cmds[i]->fdi = open(d.cmds[i + 2]->args[0],
-				O_RDONLY, 0644);
-		*s = true;
-	}
 	return (true);
 }
 
