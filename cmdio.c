@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 19:10:03 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 19:38:29 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:42:24 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	ft_route_cmd_drbrackets(t_ldata d, int i, int *s)
 	while (1)
 	{
 		line = readline("> ");
-		if (!line[0])
+		if (!line || !*line)
 			break ;
 		if (!ft_strcmp(line, d.prts[i + *s + 2]))
 			break ;
