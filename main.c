@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/11 16:13:35 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 11:53:43 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_cmd	**ft_convertall(t_state *g, char **cmds, int l)
 			p[i++] = NULL;
 		else if (!ft_strcmp(cmds[i], ">"))
 			p[i++] = NULL;
+		else if (!ft_strcmp(cmds[i], ">>"))
+			p[i++] = NULL;
 		else
 		{
 			r = ft_convert(g, cmds[i]);
@@ -61,7 +63,7 @@ bool	ft_runall(t_state *g, char **cmds, int l)
 {
 	t_cmd	**cmds2;
 	int		*pipes;
-	bool	bracket;
+	bool	ignore;
 	int		i;
 
 	cmds2 = ft_convertall(g, cmds, l);
@@ -71,11 +73,11 @@ bool	ft_runall(t_state *g, char **cmds, int l)
 	if (!pipes)
 		return (false);
 	i = 0;
-	bracket = false;
+	ignore = false;
 	while (i < l)
 	{
-		if (cmds2[i] && bracket)
-			bracket = false;
+		if (cmds2[i] && ignore)
+			ignore = false;
 		else if (cmds2[i])
 		{
 			if (cmds[i + 1] && !ft_strcmp(cmds[i + 1], "|") && cmds2[i + 2])
@@ -85,10 +87,15 @@ bool	ft_runall(t_state *g, char **cmds, int l)
 				cmds2[i]->fdo = (pipes + (i * 2))[1];
 				cmds2[i + 2]->fdi = (pipes + (i * 2))[0];
 			}
+			if (cmds[i + 1] && !ft_strcmp(cmds[i + 1], ">>") && cmds2[i + 2])
+			{
+				cmds2[i]->fdo = open(cmds2[i + 2]->args[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
+				ignore = true;
+			}
 			if (cmds[i + 1] && !ft_strcmp(cmds[i + 1], ">") && cmds2[i + 2])
 			{
 				cmds2[i]->fdo = open(cmds2[i + 2]->args[0], O_WRONLY | O_CREAT, 0644);
-				bracket = true;
+				ignore = true;
 			}
 			cmds2[i]->pid = ft_run(g, cmds2[i]);
 			if (cmds2[i]->fdi != -1)
