@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/11 15:27:16 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 13:52:17 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,9 @@ pid_t	ft_run(t_state *s, t_cmd *cmd);
 char	ft_chrid(char c);
 
 char	ft_chrup(char c);
+
+bool	ft_loop(t_state *g);
+
+t_cmd	**ft_convertall(t_state *g, char **prts, int l);
 
 #endif

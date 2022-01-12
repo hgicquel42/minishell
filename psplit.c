@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:03:14 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 11:51:32 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 13:20:17 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,41 @@ t_tuple	ft_psplit_dquote(t_state *g, t_tuple t, char *s, char *r)
 	return (t);
 }
 
+t_tuple	ft_psplit_single(t_tuple t, char *s, char *r, bool *b)
+{
+	if (!t.o)
+		ft_chrcpy(r, t.o++, s[t.i++]);
+	*b = true;
+	return (t);
+}
+
+t_tuple	ft_psplit_double(t_tuple t, char *s, char *r, bool *b)
+{
+	if (!t.o)
+	{
+		ft_chrcpy(r, t.o++, s[t.i++]);
+		ft_chrcpy(r, t.o++, s[t.i++]);
+	}
+	*b = true;
+	return (t);
+}
+
 t_tuple	ft_psplit(t_state *g, char *s, char *r)
 {
 	t_tuple	t;
+	bool	b;
 
+	b = 0;
 	t.i = 0;
 	t.o = 0;
-	while (s[t.i])
+	while (s[t.i] && !b)
 	{
-		if (s[t.i] == '|')
-		{
-			if (!t.o)
-				ft_chrcpy(r, t.o++, s[t.i++]);
-			break ;
-		}
 		if (s[t.i] == '>' && s[t.i + 1] == '>')
-		{
-			if (!t.o)
-			{
-				ft_chrcpy(r, t.o++, s[t.i++]);
-				ft_chrcpy(r, t.o++, s[t.i++]);
-			}
-			break ;
-		}
-		if (s[t.i] == '>')
-		{
-			if (!t.o)
-				ft_chrcpy(r, t.o++, s[t.i++]);
-			break ;
-		}
+			t = ft_psplit_double(t, s, r, &b);
+		else if (s[t.i] == '<' && s[t.i + 1] == '<')
+			t = ft_psplit_double(t, s, r, &b);
+		else if (s[t.i] == '|' || s[t.i] == '<' || s[t.i] == '>')
+			t = ft_psplit_single(t, s, r, &b);
 		else if (s[t.i] == '"')
 			t = ft_psplit_dquote(g, t, s, r);
 		else if (s[t.i] == '\'')

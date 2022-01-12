@@ -16,6 +16,8 @@ INPUT = \
 	envlst2.c \
 	echo.c \
 	exec.c \
+	loop.c \
+	convert.c \
 
 OUTPUT = ${INPUT:.c=.o}
 
