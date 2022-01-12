@@ -6,23 +6,11 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 14:26:54 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 15:11:44 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-char	*ft_readline(t_state *g)
-{
-	char	*line;
-
-	if (g->retval)
-		line = readline("\033[0;31m$>_\033[0m ");
-	else
-		line = readline("\033[0;32m$>_\033[0m ");
-	add_history(line);
-	return (line);
-}
 
 bool	ft_waitall(t_state *g, t_ldata d, int l)
 {
@@ -85,7 +73,6 @@ bool	ft_runall(t_state *g, t_ldata d, int l)
 	{
 		if (d.cmds[i])
 		{
-			printf("%s\n", d.prts[i]);
 			if (d.prts[i + 1] && d.cmds[i + 2])
 				if (!ft_route_cmd_io(d, i, &s))
 					return (false);
@@ -101,6 +88,18 @@ bool	ft_runall(t_state *g, t_ldata d, int l)
 		i++;
 	}
 	return (true);
+}
+
+char	*ft_readline(t_state *g)
+{
+	char	*line;
+
+	if (g->retval)
+		line = readline("\033[0;31m$>_\033[0m ");
+	else
+		line = readline("\033[0;32m$>_\033[0m ");
+	add_history(line);
+	return (line);
 }
 
 bool	ft_init(t_state *g, t_ldata *d, char *line, int *rl)

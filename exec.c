@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:24:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/11 15:27:54 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 15:12:47 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_exec(t_state *g, t_cmd *cmd)
 		ft_free(path);
 		i++;
 	}
-	printf("Not found\n");
+	ft_putstr("Not found\n");
 	ft_freep((void *) paths);
 	return (1);
 }
@@ -48,7 +48,7 @@ int	ft_route(t_state *s, t_cmd *cmd)
 	if (!ft_strcmp(cmd->args[0], "echo"))
 		return (ft_echo(cmd->args, cmd->envp));
 	else if (!ft_strcmp(cmd->args[0], "pwd"))
-		printf("%s\n", ft_getcwd());
+		ft_putstr(ft_getcwd());
 	else if (!ft_strcmp(cmd->args[0], "cd"))
 		chdir(cmd->args[1]);
 	else if (!ft_strcmp(cmd->args[0], "exit"))
@@ -58,15 +58,14 @@ int	ft_route(t_state *s, t_cmd *cmd)
 	return (0);
 }
 
-pid_t	ft_run(t_state *s, t_cmd *cmd)
+pid_t	ft_run(t_state *g, t_cmd *cmd)
 {
 	pid_t	pid;
 
-	cmd->envp = malloc(1 * sizeof(char *));
-	cmd->envp[0] = NULL; // TODO: convert g->envlst to array
 	pid = fork();
 	if (pid)
 		return (pid);
+	cmd->envp = ft_envtostr(g->envlst);
 	if (cmd->fdi != -1)
 	{
 		dup2(cmd->fdi, STDIN_FILENO);
@@ -77,5 +76,5 @@ pid_t	ft_run(t_state *s, t_cmd *cmd)
 		dup2(cmd->fdo, STDOUT_FILENO);
 		close(cmd->fdo);
 	}
-	exit(ft_route(s, cmd));
+	exit(ft_route(g, cmd));
 }

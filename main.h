@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 14:17:52 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:53:01 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,7 @@ char	ft_chrup(char c);
 bool	ft_loop(t_state *g);
 
 t_cmd	**ft_convertall(t_state *g, char **prts, int l);
+
+char	**ft_envtostr(t_env *start);
 
 #endif

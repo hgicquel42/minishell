@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 13:54:36 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 15:12:02 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_state	state;
+	t_state	g;
 
 	(void)argc;
 	(void)argv;
-	if (!ft_fillenv(&state.envlst, envp))
+	if (!ft_fillenv(&g.envlst, envp))
 		return (1);
-	state.exit = 0;
-	state.retval = 0;
-	while (!state.exit)
-		if (!ft_loop(&state))
+	g.exit = 0;
+	g.retval = 0;
+	while (!g.exit)
+		if (!ft_loop(&g))
 			return (1);
 	return (0);
 }

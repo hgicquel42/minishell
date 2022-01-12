@@ -6,20 +6,28 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:39:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 14:48:03 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 15:03:43 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
+void	ft_convert_val(int n, t_tuple *t, char *r)
+{
+	if (n >= 10)
+	{
+		ft_convert_val(n / 10, t, r);
+		ft_convert_val(n % 10, t, r);
+		return ;
+	}
+	ft_chrcpy(r, t->o++, n + '0');
+}
+
 t_tuple	ft_ssplit_dollar_ret(t_state *g, t_tuple t, char *s, char *r)
 {
 	(void)s;
 	t.i++;
-	if (g->retval)
-		ft_chrcpy(r, t.o++, '1'); // TODO: afficher la vraie valeur
-	else
-		ft_chrcpy(r, t.o++, '0');
+	ft_convert_val(g->retval, &t, r);
 	return (t);
 }
 

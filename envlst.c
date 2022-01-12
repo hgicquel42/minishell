@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:46:59 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 18:54:31 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 15:12:07 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,6 @@ bool	ft_addenv(t_env **start, char *env)
 		curr = &((*curr)->next);
 	*curr = node;
 	return (true);
-}
-
-void	ft_printenv(t_env *start)
-{
-	t_env	*curr;
-
-	curr = start;
-	while (curr)
-	{
-		printf("%s=%s\n", curr->key, curr->val);
-		curr = curr->next;
-	}
 }
 
 bool	ft_fillenv(t_env **start, char **envp)
