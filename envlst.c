@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:46:59 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 15:12:07 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:21:53 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,25 @@ void	ft_freeenv(t_env *envn)
 	free(envn);
 }
 
-t_env	*ft_genenv(char *env)
+t_env	*ft_genenv(char *key, char *val)
 {
 	t_env	*node;
-	char	**kv;
 
 	node = malloc(sizeof(t_env));
 	if (!node)
 		return (NULL);
-	kv = ft_split(env, '=');
-	node->key = kv[0];
-	node->val = kv[1];
-	ft_free(kv);
+	node->key = key;
+	node->val = val;
 	node->next = NULL;
 	return (node);
 }
 
-bool	ft_addenv(t_env **start, char *env)
+bool	ft_addenv(t_env **start, char *key, char *val)
 {
 	t_env	*node;
 	t_env	**curr;
 
-	node = ft_genenv(env);
+	node = ft_genenv(key, val);
 	if (!node)
 		return (false);
 	curr = start;
@@ -52,6 +49,19 @@ bool	ft_addenv(t_env **start, char *env)
 	return (true);
 }
 
+bool	ft_addrawenv(t_env **start, char *env)
+{
+	char	**kv;
+	bool	result;
+
+	kv = ft_split(env, '=');
+	if (!kv)
+		return (false);
+	result = ft_addenv(start, kv[0], kv[1]);
+	ft_free(kv);
+	return (result);
+}
+
 bool	ft_fillenv(t_env **start, char **envp)
 {
 	bool	error;
@@ -59,7 +69,7 @@ bool	ft_fillenv(t_env **start, char **envp)
 	*start = NULL;
 	error = false;
 	while (*envp && !error)
-		error += !ft_addenv(start, *envp++);
+		error += !ft_addrawenv(start, *envp++);
 	if (!error)
 		return (true);
 	if (*start)

@@ -14,10 +14,12 @@ INPUT = \
 	utils5.c \
 	envlst.c \
 	envlst2.c \
+	envlst3.c \
 	echo.c \
 	exec.c \
 	loop.c \
 	convert.c \
+	env.c \
 
 OUTPUT = ${INPUT:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:24:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 16:49:00 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 16:58:03 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,29 @@ int	ft_exec(t_state *g, t_cmd *cmd)
 	return (1);
 }
 
-int	ft_route(t_state *s, t_cmd *cmd)
-{
-	if (!ft_strcmp(cmd->args[0], "echo"))
-		return (ft_echo(cmd->args, cmd->envp));
-	else if (!ft_strcmp(cmd->args[0], "pwd"))
-		printf("%s\n", ft_getcwd());
-	else
-		return (ft_exec(s, cmd));
-	return (0);
-}
-
-int	ft_route2(t_state *g, t_cmd *cmd)
+int	ft_route_parent(t_state *g, t_cmd *cmd)
 {
 	if (!ft_strcmp(cmd->args[0], "cd"))
 		return (chdir(cmd->args[1]) == -1);
+	else if (!ft_strcmp(cmd->args[0], "unset"))
+		return (ft_unset(g, cmd->args, cmd->envp));
 	else if (!ft_strcmp(cmd->args[0], "exit"))
 		g->exit = true;
 	else
 		return (127);
+	return (0);
+}
+
+int	ft_route_fork(t_state *s, t_cmd *cmd)
+{
+	if (!ft_strcmp(cmd->args[0], "echo"))
+		return (ft_echo(cmd->args, cmd->envp));
+	else if (!ft_strcmp(cmd->args[0], "env"))
+		return (ft_env(cmd->args, cmd->envp));
+	else if (!ft_strcmp(cmd->args[0], "pwd"))
+		printf("%s\n", ft_getcwd());
+	else
+		return (ft_exec(s, cmd));
 	return (0);
 }
 
@@ -70,7 +74,7 @@ pid_t	ft_run(t_state *g, t_cmd *cmd)
 	pid_t	pid;
 	int		sts;
 
-	sts = ft_route2(g, cmd);
+	sts = ft_route_parent(g, cmd);
 	pid = fork();
 	if (pid)
 		return (pid);
@@ -88,7 +92,7 @@ pid_t	ft_run(t_state *g, t_cmd *cmd)
 		close(cmd->fdo);
 	}
 	if (sts == 127)
-		exit(ft_route(g, cmd));
+		exit(ft_route_fork(g, cmd));
 	else
 		exit(sts);
 }

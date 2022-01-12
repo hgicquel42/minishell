@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 16:28:13 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:23:28 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*ft_strjoin2(char *a, char *b);
 
 char	*ft_strjoin3(char *a, char *b, char *c);
 
-int		ft_route(t_state *s, t_cmd *cmd);
+int		ft_route_fork(t_state *s, t_cmd *cmd);
 
 int		ft_echo(char **args, char **envp);
 
@@ -131,5 +131,13 @@ bool	ft_loop(t_state *g);
 t_cmd	**ft_convertall(t_state *g, char **prts, int l);
 
 char	**ft_envtostr(t_env *start);
+
+int		ft_env(char **args, char **envp);
+
+bool	ft_addenv(t_env **start, char *key, char *val);
+
+void	ft_remenv(t_env **start, char *key);
+
+int		ft_unset(t_state *g, char **args, char **envp);
 
 #endif
