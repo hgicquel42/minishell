@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/13 11:59:06 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/13 14:48:06 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_env
 typedef struct s_state
 {
 	bool	cmd;
-	bool	exit;
+	int		exit;
 	int		retval;
 	t_env	*envlst;
 }	t_state;
@@ -149,5 +149,7 @@ int		ft_unset(t_state *g, char **args, char **envp);
 int		ft_export(t_state *g, char **args, char **envp);
 
 bool	ft_route_cmd_io(t_ldata d, int i, int *s, bool *p);
+
+int		ft_exit(t_state *g, char **args, char **envp);
 
 #endif

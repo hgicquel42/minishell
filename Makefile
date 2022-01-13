@@ -21,6 +21,7 @@ INPUT = \
 	convert.c \
 	env.c \
 	cmdio.c \
+	exit.c \
 
 OUTPUT = ${INPUT:.c=.o}
 
