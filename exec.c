@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:24:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 19:07:31 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:06:09 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_route_parent(t_state *g, t_cmd *cmd)
 		return (chdir(cmd->args[1]) == -1);
 	else if (!ft_strcmp(cmd->args[0], "unset"))
 		return (ft_unset(g, cmd->args, cmd->envp));
-	else if (!ft_strcmp(cmd->args[0], "export"))
+	else if (!ft_strcmp(cmd->args[0], "export") && cmd->args[1])
 		return (ft_export(g, cmd->args, cmd->envp));
 	else if (!ft_strcmp(cmd->args[0], "exit"))
 		g->exit = true;
@@ -63,6 +63,8 @@ int	ft_route_fork(t_state *s, t_cmd *cmd)
 	if (!ft_strcmp(cmd->args[0], "echo"))
 		return (ft_echo(cmd->args, cmd->envp));
 	else if (!ft_strcmp(cmd->args[0], "env"))
+		return (ft_env(cmd->args, cmd->envp));
+	if (!ft_strcmp(cmd->args[0], "export") && !cmd->args[1])
 		return (ft_env(cmd->args, cmd->envp));
 	else if (!ft_strcmp(cmd->args[0], "pwd"))
 		printf("%s\n", ft_getcwd());

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 19:10:03 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/13 11:54:09 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:08:15 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ bool	ft_route_cmd_io(t_ldata d, int i, int *s, bool *p)
 	else if (!ft_strcmp(d.prts[i + *s + 1], ">"))
 	{
 		file = d.cmds[i + *s + 2]->args[0];
-		d.cmds[i]->fdo = open(file, O_WRONLY | O_CREAT, 0644);
+		d.cmds[i]->fdo = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		*s += 2;
 	}
 	else if (!ft_strcmp(d.prts[i + *s + 1], "<"))

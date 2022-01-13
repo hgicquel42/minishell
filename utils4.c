@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 14:34:21 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 17:45:37 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:01:35 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ bool	ft_isenvchr(char c)
 	if (c >= 'A' && c <= 'Z')
 		return (true);
 	if (c >= 'a' && c <= 'z')
+		return (true);
+	if (c >= '0' && c <= '9')
 		return (true);
 	return (c == '_');
 }
