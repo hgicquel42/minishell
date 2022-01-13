@@ -22,6 +22,7 @@ INPUT = \
 	env.c \
 	cmdio.c \
 	exit.c \
+	run.c \
 
 OUTPUT = ${INPUT:.c=.o}
 
