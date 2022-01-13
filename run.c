@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:18:42 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/13 18:18:54 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/13 18:38:06 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,18 @@ pid_t	ft_run(t_state *g, t_cmd *cmd)
 	int		pid;
 	int		stdi;
 	int		stdo;
-	int		sts;
 
 	if (cmd->fdi != -1)
 		stdi = ft_dupi(cmd);
 	if (cmd->fdo != -1)
 		stdo = ft_dupo(cmd);
 	cmd->envp = ft_envtostr(g->envlst);
-	sts = ft_builtin(g, cmd);
+	cmd->sts = ft_builtin(g, cmd);
 	pid = fork();
-	if (!pid && sts == 127)
+	if (!pid && cmd->sts == 127)
 		exit(ft_exec(g, cmd));
-	if (!pid && sts != 127)
-		exit(sts);
+	if (!pid && cmd->sts != 127)
+		exit(cmd->sts);
 	if (cmd->fdi != -1)
 		dup2(stdi, STDIN_FILENO);
 	if (cmd->fdo != -1)

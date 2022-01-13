@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:34 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 13:53:32 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/13 18:32:43 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_cmd	*ft_convert(t_state *g, char *cmd)
 	r->pid = 0;
 	r->fdi = -1;
 	r->fdo = -1;
+	r->sts = 0;
 	return (r);
 }
 
