@@ -6,71 +6,66 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:03:57 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 16:39:49 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/13 12:23:19 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	ft_split_count(char *s, char c)
+t_tuple	ft_split2(char *s, char c, char *r)
 {
-	size_t	j;
-	size_t	l;
+	t_tuple	t;
+
+	t.i = 0;
+	t.o = 0;
+	while (s[t.i] && s[t.i] != c)
+		ft_chrcpy(r, t.o++, s[t.i++]);
+	if (r)
+		r[t.o] = 0;
+	return (t);
+}
+
+int	ft_split_loop(char *s, char c, char **p)
+{
+	t_tuple	t;
+	int		l;
+	char	*r;
 
 	l = 0;
 	while (*s)
 	{
 		while (*s && *s == c)
 			s++;
-		j = 0;
-		while (s[j] && s[j] != c)
-			j++;
-		if (j)
+		t = ft_split2(s, c, NULL);
+		if (t.o && !p)
 			l++;
-		s += j;
+		if (t.o && p)
+		{
+			r = malloc(t.o + 1);
+			if (!r)
+				return (l);
+			t = ft_split2(s, c, r);
+			p[l++] = r;
+		}
+		s += t.i;
 	}
+	if (p)
+		p[l] = 0;
 	return (l);
-}
-
-bool	ft_split_copy(char *s, char c, char **r)
-{
-	size_t	j;
-	size_t	k;
-	char	*w;
-
-	k = 0;
-	while (*s)
-	{
-		while (*s && *s == c)
-			s++;
-		j = 0;
-		while (s[j] && s[j] != c)
-			j++;
-		if (!j)
-			continue ;
-		w = malloc(j + 1);
-		if (!w)
-			return (false);
-		j = 0;
-		while (*s && *s != c)
-			w[j++] = *(s++);
-		w[j] = 0;
-		r[k++] = w;
-	}
-	return (true);
 }
 
 char	**ft_split(char *s, char c)
 {
 	int		l;
-	char	**r;
+	int		m;
+	char	**p;
 
-	l = ft_split_count(s, c);
-	r = malloc((l + 1) * sizeof(char *));
-	if (!r)
+	l = ft_split_loop(s, c, NULL);
+	p = malloc((l + 1) * sizeof(char *));
+	if (!p)
 		return (0);
-	if (!ft_split_copy(s, c, r))
-		return (0);
-	r[l] = 0;
-	return (r);
+	m = ft_split_loop(s, c, p);
+	if (l != m)
+		return (NULL);
+	return (p);
 }
