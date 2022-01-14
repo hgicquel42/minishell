@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:18:42 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 14:08:57 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:44:28 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int	ft_cd(char **args)
 {
-	if (!args[1] || chdir(args[1]) == -1)
+	if (!args[1])
 	{
 		ft_putstr(1, "Invalid path\n");
+		return (1);
+	}
+	if (chdir(args[1]) == -1)
+	{
+		printf("%s\n", strerror(errno));
 		return (1);
 	}
 	return (0);
