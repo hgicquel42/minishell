@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 17:10:06 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 13:26:20 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:29:01 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ t_tuple	ft_ssplit_squote(t_state *g, t_tuple t, char *s, char *r)
 	t.i++;
 	while (s[t.i] && s[t.i] != '\'')
 		ft_chrcpy(r, t.o++, s[t.i++]);
-	t.i++;
+	if (s[t.i] == '\'')
+		t.i++;
 	return (t);
 }
 
@@ -32,7 +33,8 @@ t_tuple	ft_ssplit_dquote(t_state *g, t_tuple t, char *s, char *r)
 		else
 			ft_chrcpy(r, t.o++, s[t.i++]);
 	}
-	t.i++;
+	if (s[t.i] == '"')
+		t.i++;
 	return (t);
 }
 
