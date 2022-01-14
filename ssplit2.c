@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:39:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 18:36:28 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 10:58:48 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_tuple	ft_ssplit_dollar_ret(t_state *g, t_tuple t, char *s, char *r)
 {
 	(void)s;
 	t.i++;
-	ft_convert_val(g->retval, &t, r);
+	ft_convert_val(g->retval % 255, &t, r);
 	return (t);
 }
 
