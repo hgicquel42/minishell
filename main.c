@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 10:56:12 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:18:33 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	g.exit = -1;
 	g.retval = 0;
+	signal(SIGQUIT, SIG_IGN);
 	while (g.exit == -1)
 		if (!ft_loop(&g))
 			return (1);
