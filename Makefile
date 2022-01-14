@@ -29,10 +29,10 @@ OUTPUT = ${INPUT:.c=.o}
 all: ${NAME}
 
 .c.o:	
-	gcc -Wall -Wextra -Werror -c $< -o ${<:.c=.o} -lreadline
+	gcc -Wall -Wextra -Werror -g -c $< -o ${<:.c=.o} -lreadline
 
 ${NAME}: ${OUTPUT}
-	gcc -Wall -Wextra -Werror ${OUTPUT} -o ${NAME} -lreadline
+	gcc -Wall -Wextra -Werror -g ${OUTPUT} -o ${NAME} -lreadline
 
 clean:
 	rm -f ${OUTPUT}
