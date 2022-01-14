@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 14:45:37 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/13 14:59:16 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 10:56:36 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_exit(t_state *g, char **args, char **envp)
 	}
 	else
 	{
-		g->exit = 1;
+		g->exit = 0;
 		return (0);
 	}
 }
