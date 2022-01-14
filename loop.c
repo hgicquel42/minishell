@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 11:31:23 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:06:36 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ bool	ft_runall(t_state *g, t_ldata d, int l)
 			while (!p && d.prts[i + s + 1] && d.cmds[i + s + 2])
 				if (!ft_route_cmd_io(d, i, &s, &p))
 					return (false);
+			printf("-- %s --\n", d.cmds[i]->args[0]);
+			printf("fdin = %d\n", d.cmds[i]->fdi);
+			printf("fdout = %d\n", d.cmds[i]->fdo);
 			d.cmds[i]->pid = ft_run(g, d.cmds[i]);
 			if (d.cmds[i]->fdi != -1)
 				close(d.cmds[i]->fdi);
@@ -68,14 +71,13 @@ char	*ft_readline(t_state *g)
 	char	*line;
 
 	signal(SIGINT, sigint);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 	if (g->retval)
 		line = readline("\033[0;31m$>_\033[0m ");
 	else
 		line = readline("\033[0;32m$>_\033[0m ");
 	add_history(line);
 	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
 	return (line);
 }
 

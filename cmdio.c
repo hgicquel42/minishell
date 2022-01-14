@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 19:10:03 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 15:35:09 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:16:24 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 bool	ft_route_cmd_pipe(t_ldata d, int i, int *s, bool *p)
 {
+	*p = true;
+	if (d.cmds[i]->fdo != -1)
+		return (true);
 	if (pipe(d.pipes + (i * 2)) == -1)
 		return (false);
 	d.cmds[i]->fdo = (d.pipes + (i * 2))[1];
 	d.cmds[i + *s + 2]->fdi = (d.pipes + (i * 2))[0];
-	*p = true;
 	return (true);
 }
 
