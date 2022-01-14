@@ -6,11 +6,21 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:18:42 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 11:25:45 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:05:14 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+int	ft_cd(char **args)
+{
+	if (!args[1] || chdir(args[1]) == -1)
+	{
+		ft_putstr(1, "Invalid path\n");
+		return (1);
+	}
+	return (0);
+}
 
 int	ft_builtin(t_state *g, t_cmd *cmd)
 {
@@ -19,7 +29,7 @@ int	ft_builtin(t_state *g, t_cmd *cmd)
 	else if (!ft_strcmp(cmd->args[0], "pwd"))
 		return (printf("%s\n", ft_getcwd()) == -1);
 	else if (!ft_strcmp(cmd->args[0], "cd"))
-		return (chdir(cmd->args[1]) == -1);
+		return (ft_cd(cmd->args));
 	else if (!ft_strcmp(cmd->args[0], "env"))
 		return (ft_env(cmd->args, cmd->envp));
 	else if (!ft_strcmp(cmd->args[0], "export") && !cmd->args[1])
