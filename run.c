@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:18:42 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 14:05:14 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:08:57 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_builtin(t_state *g, t_cmd *cmd)
 	if (!ft_strcmp(cmd->args[0], "echo"))
 		return (ft_echo(cmd->args, cmd->envp));
 	else if (!ft_strcmp(cmd->args[0], "pwd"))
-		return (printf("%s\n", ft_getcwd()) == -1);
+		return (ft_pwd());
 	else if (!ft_strcmp(cmd->args[0], "cd"))
 		return (ft_cd(cmd->args));
 	else if (!ft_strcmp(cmd->args[0], "env"))

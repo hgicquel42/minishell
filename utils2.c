@@ -6,17 +6,20 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:19:10 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/07 14:58:22 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:09:31 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-char	*ft_getcwd(void)
+int	ft_pwd(void)
 {
 	char	r[FILENAME_MAX];
 
-	return (getcwd(r, FILENAME_MAX));
+	if (!getcwd(r, FILENAME_MAX))
+		return (1);
+	printf("%s\n", r);
+	return (0);
 }
 
 char	*ft_strjoin2(char *a, char *b)

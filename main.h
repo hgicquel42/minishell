@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 11:20:06 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:08:21 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_strdup(char *s, char (*f)(char));
 
 char	*ft_strldup(char *s, int l, char (*f)(char));
 
-char	*ft_getcwd(void);
+int		ft_pwd(void);
 
 bool	ft_isenvchr(char c);
 
