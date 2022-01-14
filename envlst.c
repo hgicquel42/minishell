@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:46:59 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/13 12:24:34 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 11:20:33 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ bool	ft_addrawenv(t_env **start, char *env)
 	if (!kv)
 		return (false);
 	result = ft_addenv(start, kv[0], kv[1]);
-	if (kv[2])
-		free(kv[2]);
+	ft_freen((void **) kv + 2);
 	free(kv);
 	return (result);
 }

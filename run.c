@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:18:42 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/13 18:38:06 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 11:25:45 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ pid_t	ft_run(t_state *g, t_cmd *cmd)
 	if (cmd->fdo != -1)
 		stdo = ft_dupo(cmd);
 	cmd->envp = ft_envtostr(g->envlst);
+	if (!cmd->envp)
+		return (0);
 	cmd->sts = ft_builtin(g, cmd);
 	pid = fork();
 	if (!pid && cmd->sts == 127)

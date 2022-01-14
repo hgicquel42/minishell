@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 19:10:03 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/13 13:36:26 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 11:33:55 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ bool	ft_route_cmd_drbrackets(t_ldata d, int i, int *s)
 			break ;
 		if (!ft_strcmp(line, word))
 			break ;
-		if (!ft_putstr(fdo, line))
-			break ;
-		if (!ft_putchr(fdo, '\n'))
-			break ;
+		ft_putstr(fdo, line);
+		ft_putchr(fdo, '\n');
+		free(line);
 	}
+	free(line);
 	close(fdo);
 	*s += 2;
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:24:40 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 11:01:27 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 11:21:07 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int	ft_exec(t_state *g, t_cmd *cmd)
 		i++;
 	}
 	printf("%s: command not found\n", cmd->args[0]);
-	ft_freep((void *) paths);
+	ft_freep((void **) paths);
 	return (127);
 }
