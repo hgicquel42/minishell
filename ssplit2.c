@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:39:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 10:58:48 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:00:58 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_tuple	ft_ssplit_dollar_env(t_state *g, t_tuple t, char *s, char *r)
 	l = 0;
 	while (ft_isenvchr(s[t.i + l]))
 		l++;
-	d = ft_strldup(s + t.i, l, ft_chrup);
+	d = ft_strldup(s + t.i, l, ft_chrid);
 	n = ft_findenv(g->envlst, d);
 	t.i += l;
 	if (n)
