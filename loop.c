@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 16:18:21 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:56:26 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ bool	ft_loop(t_state *g)
 	if (!line)
 	{
 		ft_putstr(1, "exit\n");
-		g->exit = 0;
+		g->exitval = 0;
 		return (true);
 	}
 	if (!ft_init(g, &d, line, &l))

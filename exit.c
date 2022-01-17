@@ -6,13 +6,13 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 14:45:37 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 10:56:36 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:58:23 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	ft_atoi(char *s)
+bool	ft_atoi(char *s, int *r)
 {
 	int	i;
 	int	x;
@@ -26,21 +26,33 @@ int	ft_atoi(char *s)
 	x = 0;
 	while (s[i] >= '0' && s[i] <= '9')
 		x = (x * 10) + (n * (s[i++] - '0'));
-	return (x);
+	if (!i)
+		return (false);
+	*r = x;
+	return (true);
 }
 
 int	ft_exit(t_state *g, char **args, char **envp)
 {
-	(void)args;
 	(void)envp;
-	if (args[1])
+	printf("exit\n");
+	g->exit = true;
+	if (!args[1])
 	{
-		g->exit = ft_atoi(args[1]);
+		g->exitval = 0;
 		return (0);
 	}
-	else
+	if (!ft_atoi(args[1], &g->exitval))
 	{
-		g->exit = 0;
-		return (0);
+		g->exitval = 2;
+		printf("exit: %s: numeric argument required\n", args[1]);
+		return (1);
 	}
+	if (args[2])
+	{
+		g->exitval = 1;
+		printf("exit: too many arguments\n");
+		return (1);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 15:51:25 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:54:10 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ typedef struct s_env
 typedef struct s_state
 {
 	bool	cmd;
-	int		exit;
+	bool	exit;
+	int		exitval;
 	int		retval;
 	t_env	*envlst;
 }	t_state;
