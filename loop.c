@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/17 18:02:59 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:58:23 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,11 @@ bool	ft_init(t_state *g, t_ldata *d, char *line, int *rl)
 	l = 0;
 	while (d->prts[l])
 		l++;
+	if (!ft_strlen(d->prts[l - 1]))
+	{
+		free(d->prts[l - 1]);
+		d->prts[l - 1] = NULL;
+	}
 	d->cmds = ft_convertall(g, d->prts, l);
 	if (!d->cmds)
 		return (false);
