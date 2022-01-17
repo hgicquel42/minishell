@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:28:36 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/10 16:40:36 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 16:15:33 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,23 @@ int	ft_xsplit_loop(
 	return (l);
 }
 
+char	**ft_xsplit_empty(void)
+{
+	char	**p;
+	char	*r;
+
+	p = malloc(2);
+	if (!p)
+		return (NULL);
+	r = malloc(1);
+	if (!r)
+		return (NULL);
+	r[0] = 0;
+	p[0] = r;
+	p[1] = 0;
+	return (p);
+}
+
 char	**ft_xsplit(
 	t_state *g, char *s,
 	t_tuple (*f)(t_state *g, char *s, char *r)
@@ -60,9 +77,11 @@ char	**ft_xsplit(
 	char	**p;
 
 	l = ft_xsplit_loop(g, s, NULL, f);
+	if (!l)
+		return (ft_xsplit_empty());
 	p = malloc((l + 1) * sizeof(char *));
 	if (!p)
-		return (0);
+		return (NULL);
 	m = ft_xsplit_loop(g, s, p, f);
 	if (l != m)
 		return (NULL);
