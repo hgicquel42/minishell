@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:28:36 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/17 16:15:33 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:28:00 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,16 @@ int	ft_xsplit_loop(
 		while (*s && *s == ' ')
 			s++;
 		t = f(g, s, NULL);
-		if (t.o && !p)
-			l++;
-		if (t.o && p)
+		if (p)
 		{
 			r = malloc(t.o + 1);
 			if (!r)
 				return (l);
 			t = f(g, s, r);
-			p[l++] = r;
+			p[l] = r;
 		}
 		s += t.i;
+		l++;
 	}
 	if (p)
 		p[l] = 0;
@@ -77,8 +76,6 @@ char	**ft_xsplit(
 	char	**p;
 
 	l = ft_xsplit_loop(g, s, NULL, f);
-	if (!l)
-		return (ft_xsplit_empty());
 	p = malloc((l + 1) * sizeof(char *));
 	if (!p)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 18:18:42 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 14:44:28 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:36:39 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_cd(char **args)
 {
-	if (!args[1])
+	if (!ft_strlen(args[1]))
 	{
 		ft_putstr(1, "Invalid path\n");
 		return (1);
@@ -30,21 +30,19 @@ int	ft_cd(char **args)
 int	ft_builtin(t_state *g, t_cmd *cmd)
 {
 	if (!ft_strcmp(cmd->args[0], "echo"))
-		return (ft_echo(cmd->args, cmd->envp));
+		return (ft_echo(cmd->args));
 	else if (!ft_strcmp(cmd->args[0], "pwd"))
 		return (ft_pwd());
 	else if (!ft_strcmp(cmd->args[0], "cd"))
 		return (ft_cd(cmd->args));
 	else if (!ft_strcmp(cmd->args[0], "env"))
-		return (ft_env(cmd->args, cmd->envp));
-	else if (!ft_strcmp(cmd->args[0], "export") && !cmd->args[1])
-		return (ft_env(cmd->args, cmd->envp));
-	else if (!ft_strcmp(cmd->args[0], "export") && cmd->args[1])
+		return (ft_env(cmd->envp));
+	else if (!ft_strcmp(cmd->args[0], "export"))
 		return (ft_export(g, cmd->args, cmd->envp));
 	else if (!ft_strcmp(cmd->args[0], "unset"))
-		return (ft_unset(g, cmd->args, cmd->envp));
+		return (ft_unset(g, cmd->args));
 	else if (!ft_strcmp(cmd->args[0], "exit"))
-		return (ft_exit(g, cmd->args, cmd->envp));
+		return (ft_exit(g, cmd->args));
 	return (127);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 14:45:37 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/17 17:58:23 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:36:35 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ bool	ft_atoi(char *s, int *r)
 	return (true);
 }
 
-int	ft_exit(t_state *g, char **args, char **envp)
+int	ft_exit(t_state *g, char **args)
 {
-	(void)envp;
-	printf("exit\n");
+	ft_putstr(1, "exit\n");
 	g->exit = true;
-	if (!args[1])
+	if (!ft_strlen(args[1]))
 	{
 		g->exitval = 0;
 		return (0);
@@ -48,7 +47,7 @@ int	ft_exit(t_state *g, char **args, char **envp)
 		printf("exit: %s: numeric argument required\n", args[1]);
 		return (1);
 	}
-	if (args[2])
+	if (ft_strlen(args[2]))
 	{
 		g->exitval = 1;
 		printf("exit: too many arguments\n");

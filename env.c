@@ -6,15 +6,14 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:52:37 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 14:17:31 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:35:58 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	ft_env(char **args, char **envp)
+int	ft_env(char **envp)
 {
-	(void)args;
 	if (!envp)
 		return (1);
 	while (*envp)
@@ -22,33 +21,48 @@ int	ft_env(char **args, char **envp)
 	return (0);
 }
 
-int	ft_unset(t_state *g, char **args, char **envp)
+int	ft_unset(t_state *g, char **args)
 {
 	int	i;
 
-	(void)envp;
 	i = 1;
 	while (args[i])
 		ft_remenv(&(g->envlst), args[i++]);
 	return (0);
 }
 
+int	ft_export2(t_state *g, char *arg)
+{
+	char	**kv;
+
+	kv = ft_split(arg, '=');
+	if (!kv[0] || !kv[1])
+	{
+		printf("export: \"%s\": not a valid identifier\n", arg);
+		ft_freep((void **) kv);
+		return (1);
+	}
+	if (!ft_isenvstr(kv[0]))
+	{
+		printf("export: \"%s\": not a valid identifier\n", arg);
+		ft_freep((void **) kv);
+		return (1);
+	}
+	ft_setenv(&(g->envlst), kv[0], kv[1]);
+	ft_free(kv);
+	return (0);
+}
+
 int	ft_export(t_state *g, char **args, char **envp)
 {
 	int		i;
-	char	**kv;
+	bool	e;
 
-	(void)envp;
+	if (!ft_strlen(args[1]))
+		return (ft_env(envp));
 	i = 1;
+	e = false;
 	while (args[i])
-	{
-		kv = ft_split(args[i++], '=');
-		if (!kv[0] || !kv[1])
-			return (ft_freep((void **) kv) + 1);
-		if (!ft_isenvstr(kv[0]))
-			return (ft_freep((void **) kv) + 1);
-		ft_setenv(&(g->envlst), kv[0], kv[1]);
-		ft_free(kv);
-	}
-	return (0);
+		e |= ft_export2(g, args[i++]);
+	return (e);
 }

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:29:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 18:23:13 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:28:59 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(char *s)
 	size_t	l;
 
 	l = 0;
-	while (s[l])
+	while (s && s[l])
 		l++;
 	return (l);
 }

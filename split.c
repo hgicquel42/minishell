@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:03:57 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 14:16:06 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:28:09 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,16 @@ int	ft_split_loop(char *s, char c, char **p)
 		while (*s && *s == c)
 			s++;
 		t = ft_split2(s, c, NULL);
-		if (t.o && !p)
-			l++;
-		if (t.o && p)
+		if (p)
 		{
 			r = malloc(t.o + 1);
 			if (!r)
 				return (l);
 			t = ft_split2(s, c, r);
-			p[l++] = r;
+			p[l] = r;
 		}
 		s += t.i;
+		l++;
 	}
 	if (p)
 		p[l] = 0;

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:34 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/13 18:32:43 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:47:54 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool	ft_strispipeorbracket(char	*s)
 t_cmd	*ft_convert(t_state *g, char *cmd)
 {
 	t_cmd	*r;
+	int		i;
 
 	r = malloc(sizeof(t_cmd));
 	if (!cmd)
@@ -37,6 +38,14 @@ t_cmd	*ft_convert(t_state *g, char *cmd)
 	r->args = ft_xsplit(g, cmd, ft_ssplit);
 	if (!r->args)
 		return (NULL);
+	i = 0;
+	while (r->args[i])
+		i++;
+	if (i > 1 && !ft_strlen(r->args[i - 1]))
+	{
+		free(r->args[i - 1]);
+		r->args[i - 1] = NULL;
+	}
 	r->envp = NULL;
 	r->pid = 0;
 	r->fdi = -1;

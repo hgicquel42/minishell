@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 14:34:21 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/13 13:01:35 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:04:52 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ bool	ft_isenvchr(char c)
 
 bool	ft_isenvstr(char *s)
 {
+	if (*s >= '0' && *s <= '9')
+		return (false);
 	while (*s)
 		if (!ft_isenvchr(*s++))
 			return (false);

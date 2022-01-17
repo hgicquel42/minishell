@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/17 17:54:10 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:36:43 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char	*ft_strjoin3(char *a, char *b, char *c);
 
 int		ft_route_fork(t_state *s, t_cmd *cmd);
 
-int		ft_echo(char **args, char **envp);
+int		ft_echo(char **args);
 
 int		ft_exec(t_state *g, t_cmd *cmd);
 
@@ -138,7 +138,7 @@ t_cmd	**ft_convertall(t_state *g, char **prts, int l);
 
 char	**ft_envtostr(t_env *start);
 
-int		ft_env(char **args, char **envp);
+int		ft_env(char **envp);
 
 bool	ft_addenv(t_env **start, char *key, char *val);
 
@@ -148,12 +148,12 @@ void	ft_freeenv(t_env *envn);
 
 bool	ft_setenv(t_env **start, char *key, char *val);
 
-int		ft_unset(t_state *g, char **args, char **envp);
+int		ft_unset(t_state *g, char **args);
 
 int		ft_export(t_state *g, char **args, char **envp);
 
 bool	ft_route_cmd_io(t_ldata d, int i, int *s, bool *p);
 
-int		ft_exit(t_state *g, char **args, char **envp);
+int		ft_exit(t_state *g, char **args);
 
 #endif

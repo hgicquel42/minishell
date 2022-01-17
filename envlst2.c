@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 16:52:04 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/12 14:52:57 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:38:55 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ t_env	*ft_findenv(t_env *start, char *key)
 int	ft_envtostr3(t_env *envn, char *r)
 {
 	int	i;
-	int	l;
+	int	o;
 
-	l = 0;
+	o = 0;
 	i = 0;
 	while (envn->key[i])
-		ft_chrcpy(r, l++, envn->key[i++]);
-	ft_chrcpy(r, l++, '=');
+		ft_chrcpy(r, o++, envn->key[i++]);
+	ft_chrcpy(r, o++, '=');
 	i = 0;
 	while (envn->val[i])
-		ft_chrcpy(r, l++, envn->val[i++]);
+		ft_chrcpy(r, o++, envn->val[i++]);
 	if (r)
-		r[l] = 0;
-	return (l);
+		r[o] = 0;
+	return (o);
 }
 
 int	ft_envtostr2(t_env *envn, char **p)
@@ -54,17 +54,16 @@ int	ft_envtostr2(t_env *envn, char **p)
 	while (envn)
 	{
 		o = ft_envtostr3(envn, NULL);
-		if (o && !p)
-			l++;
-		if (o && p)
+		if (p)
 		{
 			r = malloc(o + 1);
 			if (!r)
 				return (l);
 			o = ft_envtostr3(envn, r);
-			p[l++] = r;
+			p[l] = r;
 		}
 		envn = envn->next;
+		l++;
 	}
 	if (p)
 		p[l] = 0;
