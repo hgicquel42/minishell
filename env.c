@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:52:37 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/17 18:35:58 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:36:21 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_export2(t_state *g, char *arg)
 	char	**kv;
 
 	kv = ft_split(arg, '=');
-	if (!kv[0] || !kv[1])
+	if (!kv[0])
 	{
 		printf("export: \"%s\": not a valid identifier\n", arg);
 		ft_freep((void **) kv);
@@ -48,6 +48,8 @@ int	ft_export2(t_state *g, char *arg)
 		ft_freep((void **) kv);
 		return (1);
 	}
+	if (!kv[1])
+		return (ft_freep((void *) kv));
 	ft_setenv(&(g->envlst), kv[0], kv[1]);
 	ft_free(kv);
 	return (0);
