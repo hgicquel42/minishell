@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:02 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/19 15:02:50 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:57:07 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,7 @@ bool	ft_init(t_state *g, t_ldata *d, char *line, int *rl)
 	d->prts = ft_xsplit(g, line, ft_psplit);
 	if (!d->prts)
 		return (false);
-	l = 0;
-	while (d->prts[l])
-		l++;
-	if (l > 1 && !ft_strlen(d->prts[l - 1]))
-	{
-		free(d->prts[l - 1]);
-		d->prts[l - 1] = NULL;
-	}
+	l = ft_ptrlen((void **) d->prts);
 	d->cmds = ft_convertall(g, d->prts, l);
 	if (!d->cmds)
 		return (false);
