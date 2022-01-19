@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:46:59 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 11:20:33 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:55:14 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	ft_freeenv(t_env *envn)
 {
-	if (envn->next)
-		ft_freeenv(envn->next);
+	if (!envn)
+		return ;
 	free(envn->key);
 	free(envn->val);
+	ft_freeenv(envn->next);
 	free(envn);
 }
 
