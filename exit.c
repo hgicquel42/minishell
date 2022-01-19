@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 14:45:37 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/17 18:36:35 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:19:25 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 bool	ft_atoi(char *s, int *r)
 {
-	int	i;
-	int	x;
-	int	n;
+	int		i;
+	long	x;
+	int		n;
 
 	n = 1;
 	i = 0;
@@ -24,11 +24,13 @@ bool	ft_atoi(char *s, int *r)
 		if (s[i++] == '-')
 			n *= -1;
 	x = 0;
-	while (s[i] >= '0' && s[i] <= '9')
+	while (s[i] >= '0' && s[i] <= '9' && x <= 2147483647 && x >= -2147483648)
 		x = (x * 10) + (n * (s[i++] - '0'));
+	if (x > 2147483647 || x < -2147483648)
+		return (false);
 	if (!i)
 		return (false);
-	*r = x;
+	*r = (int) x;
 	return (true);
 }
 
