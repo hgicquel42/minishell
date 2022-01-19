@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:52:37 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/19 15:36:21 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:54:38 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,24 @@ int	ft_export2(t_state *g, char *arg)
 		return (1);
 	}
 	if (!kv[1])
-		return (ft_freep((void *) kv));
+		return (ft_freep((void **) kv));
 	ft_setenv(&(g->envlst), kv[0], kv[1]);
 	ft_free(kv);
+	return (0);
+}
+
+int	ft_export3(char **envp)
+{
+	char	**kv;
+
+	ft_sort(envp);
+	while (*envp)
+	{
+		kv = ft_split(*envp++, '=');
+		if (kv[0] && kv[1])
+			printf("declare -x %s=\"%s\"\n", kv[0], kv[1]);
+		ft_freep((void **) kv);
+	}
 	return (0);
 }
 
@@ -61,7 +76,7 @@ int	ft_export(t_state *g, char **args, char **envp)
 	bool	e;
 
 	if (!ft_strlen(args[1]))
-		return (ft_env(envp));
+		return (ft_export3(envp));
 	i = 1;
 	e = false;
 	while (args[i])

@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/17 18:36:43 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:53:39 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,5 +155,9 @@ int		ft_export(t_state *g, char **args, char **envp);
 bool	ft_route_cmd_io(t_ldata d, int i, int *s, bool *p);
 
 int		ft_exit(t_state *g, char **args);
+
+size_t	ft_ptrlen(void **p);
+
+void	ft_sort(char **p);
 
 #endif

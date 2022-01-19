@@ -6,11 +6,21 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:29:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/17 18:28:59 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:53:20 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+size_t	ft_ptrlen(void **p)
+{
+	size_t	l;
+
+	l = 0;
+	while (p && p[l])
+		l++;
+	return (l);
+}
 
 size_t	ft_strlen(char *s)
 {

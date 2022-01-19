@@ -23,6 +23,7 @@ INPUT = \
 	cmdio.c \
 	exit.c \
 	run.c \
+	sort.c \
 
 OUTPUT = ${INPUT:.c=.o}
 
