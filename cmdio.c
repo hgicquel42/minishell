@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 19:10:03 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/14 16:16:24 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:30:04 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,18 @@ bool	ft_route_cmd_drbrackets(t_ldata d, int i, int *s)
 	return (true);
 }
 
+bool	ft_errsyntax(void)
+{
+	printf("Sytax error\n");
+	return (false);
+}
+
 bool	ft_route_cmd_io(t_ldata d, int i, int *s, bool *p)
 {
 	char	*file;
 
+	if (!d.cmds[i + *s + 2])
+		return (ft_errsyntax());
 	if (!ft_strcmp(d.prts[i + *s + 1], "|"))
 		return (ft_route_cmd_pipe(d, i, s, p));
 	else if (!ft_strcmp(d.prts[i + *s + 1], ">>"))

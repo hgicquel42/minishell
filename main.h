@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/19 15:53:39 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:03:50 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,7 @@ int		ft_exit(t_state *g, char **args);
 size_t	ft_ptrlen(void **p);
 
 void	ft_sort(char **p);
+
+bool	ft_stristoken(char	*s);
 
 #endif

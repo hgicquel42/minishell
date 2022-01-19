@@ -6,13 +6,13 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:51:34 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/19 15:07:20 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:03:54 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-bool	ft_strispipeorbracket(char	*s)
+bool	ft_stristoken(char	*s)
 {
 	if (!ft_strcmp(s, "|"))
 		return (true);
@@ -57,7 +57,7 @@ t_cmd	**ft_convertall(t_state *g, char **prts, int l)
 	i = 0;
 	while (prts[i])
 	{
-		if (ft_strispipeorbracket(prts[i]))
+		if (ft_stristoken(prts[i]))
 		{
 			p[i++] = NULL;
 			continue ;
