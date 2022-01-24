@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 15:32:17 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/19 14:57:19 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/24 13:25:15 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	if (!isatty(0))
+		return (1);
 	if (!ft_fillenv(&g.envlst, envp))
 		return (1);
 	g.retval = 0;

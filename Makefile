@@ -12,6 +12,7 @@ INPUT = \
 	utils3.c \
 	utils4.c \
 	utils5.c \
+	utils6.c \
 	envlst.c \
 	envlst2.c \
 	envlst3.c \

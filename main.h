@@ -6,7 +6,7 @@
 /*   By: hgicquel <hgicquel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 17:08:18 by hgicquel          #+#    #+#             */
-/*   Updated: 2022/01/19 16:03:50 by hgicquel         ###   ########.fr       */
+/*   Updated: 2022/01/24 13:31:37 by hgicquel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int		ft_free(void *p);
 int		ft_freen(void **p);
 
 int		ft_strcmp(char *a, char *b);
+
+int		ft_strlcmp(char *a, char *b, int l);
 
 bool	ft_putchr(int fd, char c);
 
