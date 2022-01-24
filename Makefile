@@ -25,6 +25,7 @@ INPUT = \
 	exit.c \
 	run.c \
 	sort.c \
+	export.c \
 
 OUTPUT = ${INPUT:.c=.o}
 
